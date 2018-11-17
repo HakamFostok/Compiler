@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9158B7D1-BB17-4AF4-B637-37B1B9F87CF2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Compiler.Core</RootNamespace>
+    <AssemblyName>Compiler.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;doc</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AubCompiler.cs" />
+    <Compile Include="CompilerLibraryResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CompilerLibraryResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="CompileTimeErrorException.cs" />
+    <Compile Include="ErrorBaseException.cs" />
+    <Compile Include="Executer.cs" />
+    <Compile Include="InputForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputForm.Designer.cs">
+      <DependentUpon>InputForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LexicalAnalyst.cs" />
+    <Compile Include="LexicalErrorException.cs" />
+    <Compile Include="MacroErrorException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RuntimeErrorException.cs" />
+    <Compile Include="RuntimeMessagesError.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RuntimeMessagesError.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SyntaxAnalyst.cs" />
+    <Compile Include="SyntaxErrorException.cs" />
+    <Compile Include="SyntaxMessagesError.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SyntaxMessagesError.resx</DependentUpon>
+    </Compile>
+    <Compile Include="TAssign.cs" />
+    <Compile Include="TBreak.cs" />
+    <Compile Include="TCall.cs" />
+    <Compile Include="TDefine.cs" />
+    <Compile Include="TDoWhile.cs" />
+    <Compile Include="TExpression.cs" />
+    <Compile Include="TFile.cs" />
+    <Compile Include="TFor.cs" />
+    <Compile Include="TIdentifier.cs" />
+    <Compile Include="TIf.cs" />
+    <Compile Include="TInstruction.cs" />
+    <Compile Include="TItem.cs" />
+    <Compile Include="TListVar.cs" />
+    <Compile Include="TProcedure.cs" />
+    <Compile Include="TRead.cs" />
+    <Compile Include="TRepeatUntil.cs" />
+    <Compile Include="TReturn.cs" />
+    <Compile Include="TSymbol.cs" />
+    <Compile Include="TVar.cs" />
+    <Compile Include="TWhile.cs" />
+    <Compile Include="TWrite.cs" />
+    <Compile Include="TypeSymbol.cs" />
+    <Compile Include="Utility.cs" />
+    <Compile Include="Variables.cs" />
+    <Compile Include="WarningException.cs" />
+    <Compile Include="WordMessagesError.Designer.cs" />
+    <Compile Include="WriteEventArgs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="keywords.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CompilerLibraryResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CompilerLibraryResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputForm.resx">
+      <DependentUpon>InputForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuntimeMessagesError.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RuntimeMessagesError.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyntaxMessagesError.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SyntaxMessagesError.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WordMessagesError.resx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
