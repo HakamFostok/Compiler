@@ -48,9 +48,9 @@
             </MenuItem>
 
             <MenuItem Header="_Debug">
-                <MenuItem Header="_Build"/>
-                <MenuItem Header="_Execute"/>
-                <MenuItem Header="_Execute From Object File"/>
+                <MenuItem Header="_Build" Command="{Binding BuildCommand}"/>
+                <MenuItem Header="_Execute" Command="{Binding ExecuteCommand}"/>
+                <MenuItem Header="_Execute From Object File" Command="{Binding ExecuteFromObjFileCommand}"/>
             </MenuItem>
 
             <MenuItem Header="_Help">
