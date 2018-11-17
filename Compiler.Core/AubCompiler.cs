@@ -47,7 +47,7 @@ namespace Compiler.Core
             }
         }
 
-        private TProcedure gProc
+        private ProcedureInstruction gProc
         {
             get
             {
@@ -158,7 +158,7 @@ namespace Compiler.Core
                 analyst.CompileCurrentFile();
                 if (mainFile)       // if there is NO main is not in main File.
                 {
-                    if (TIdentifier.FindIdentifer("Main", gProc) == null)
+                    if (IdentifierInstruction.FindIdentifer("Main", gProc) == null)
                     {
                         MakeSyntaxError(string.Format(SyntaxMessagesError.NoMainMethod, currentFile.Name));
                     }
@@ -169,7 +169,7 @@ namespace Compiler.Core
             }
 
             // Check if we call function or procedure that not Defined
-            TProcedure tempP = gProc;
+            ProcedureInstruction tempP = gProc;
             while (tempP != null)
             {
                 if (!tempP.IsDefined)
@@ -177,7 +177,7 @@ namespace Compiler.Core
                     throw new SyntaxErrorException(string.Format(SyntaxMessagesError.MethodNotDefined, tempP.Name), 0, 0, "");
                     //MakeSyntaxError(string.Format(SyntaxMessagesError.MethodNotDefined, tempP.Name));
                 }
-                tempP = (TProcedure)tempP.Next;
+                tempP = (ProcedureInstruction)tempP.Next;
             }
 
             string[] dirs = gFile.Name.Split('\\');

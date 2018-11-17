@@ -10,7 +10,7 @@ namespace Compiler.Core
     {
         private BinaryFormatter formatter { get; set; }
         private TypeSymbol UL { get; set; }
-        private TReturn GReturn { get; set; }
+        private ReturnInstruction GReturn { get; set; }
         public event EventHandler<WriteEventArgs> WriteEvent;
         public event EventHandler<WriteEventArgs> EndOfExecute;
 
@@ -23,10 +23,10 @@ namespace Compiler.Core
         {
             using (FileStream stream = new FileStream(path, FileMode.Open))
             {
-                TProcedure methods;
+                ProcedureInstruction methods;
                 try
                 {
-                    methods = (TProcedure)formatter.Deserialize(stream);
+                    methods = (ProcedureInstruction)formatter.Deserialize(stream);
                 }
                 catch (SerializationException)
                 {
@@ -34,7 +34,7 @@ namespace Compiler.Core
                     return;     // this statment is unreachable. Just for the compile Error
                 }
 
-                TProcedure main = TIdentifier.FindIdentifer("Main", methods);
+                ProcedureInstruction main = IdentifierInstruction.FindIdentifer("Main", methods);
 
                 if (main != null)
                 {
@@ -53,13 +53,13 @@ namespace Compiler.Core
             }
         }
 
-        private TypeSymbol ExecuteListOfInstructions(TInstruction linst)
+        private TypeSymbol ExecuteListOfInstructions(BaseInstruction linst)
         {
             while (linst != null)
             {
-                if (linst.Ins is TCall)
+                if (linst.Ins is CallInstruction)
                 {
-                    TCall callaux = linst.Ins as TCall;
+                    CallInstruction callaux = linst.Ins as CallInstruction;
                     UL = ExecuteCall(callaux);
 
                     if (UL == TypeSymbol.U_Return)
@@ -73,9 +73,9 @@ namespace Compiler.Core
                         return UL;
                     }
                 }
-                else if (linst.Ins is TIf)
+                else if (linst.Ins is IfInstruction)
                 {
-                    TIf ifaux = linst.Ins as TIf;
+                    IfInstruction ifaux = linst.Ins as IfInstruction;
                     UL = ExecuteListOfInstructions((EvaluateCondition(ifaux.Cond)) ? ifaux.Ins : ifaux.InsElse);
 
                     if (UL == TypeSymbol.U_Halt || UL == TypeSymbol.U_Break ||
@@ -84,9 +84,9 @@ namespace Compiler.Core
                         return UL;
                     }
                 }
-                else if (linst.Ins is TWhile)
+                else if (linst.Ins is WhileInstruction)
                 {
-                    TWhile whileaux = linst.Ins as TWhile;
+                    WhileInstruction whileaux = linst.Ins as WhileInstruction;
                     while (EvaluateCondition(whileaux.Cond))
                     {
                         UL = ExecuteListOfInstructions(whileaux.Ins);
@@ -103,9 +103,9 @@ namespace Compiler.Core
                         }
                     }
                 }
-                else if (linst.Ins is TFor)
+                else if (linst.Ins is ForInstruction)
                 {
-                    TFor foraux = linst.Ins as TFor;
+                    ForInstruction foraux = linst.Ins as ForInstruction;
                     TExpression expB = EvaluateInteger(foraux.ExpBegin);
                     TExpression expE = EvaluateInteger(foraux.ExpEnd);
                     TExpression step = EvaluateInteger(foraux.ExpStep);
@@ -161,10 +161,10 @@ namespace Compiler.Core
                     Free(ref expE);
                     Free(ref step);
                 }
-                else if (linst.Ins is TDoWhile)
+                else if (linst.Ins is DoWhileInstruction)
                 {
 #if doc
-                    TDoWhile doaux = linst.Ins as TDoWhile;
+                    DoWhileInstruction doaux = linst.Ins as DoWhileInstruction;
                     do
                     {
                         UL = ExecuteListOfInstructions(doaux.Ins);
@@ -184,10 +184,10 @@ namespace Compiler.Core
                     //ExecuteOneTimeLoopAtLeast(linst.Ins as TConditionBase, true);
 #endif
                 }
-                else if (linst.Ins is TRepeatUntil)
+                else if (linst.Ins is RepeatUntilInstruction)
                 {
 #if doc
-                    TRepeatUntil repeataux = linst.Ins as TRepeatUntil;
+                    RepeatUntilInstruction repeataux = linst.Ins as RepeatUntilInstruction;
                     do
                     {
                         UL = ExecuteListOfInstructions(repeataux.Ins);
@@ -207,19 +207,19 @@ namespace Compiler.Core
                     ExecuteOneTimeLoopAtLeast(linst.Ins as TConditionBase ,false)
 #endif
                 }
-                else if (linst.Ins is TBreak)
+                else if (linst.Ins is BreakInstruction)
                 {
-                    return (linst.Ins as TBreak).UL;
+                    return (linst.Ins as BreakInstruction).UL;
                 }
-                else if (linst.Ins is TReturn)
+                else if (linst.Ins is ReturnInstruction)
                 {
-                    TReturn returnaux = linst.Ins as TReturn;
+                    ReturnInstruction returnaux = linst.Ins as ReturnInstruction;
                     GReturn = returnaux;
                     return TypeSymbol.U_Return;
                 }
-                else if (linst.Ins is TAssign)
+                else if (linst.Ins is AssignInstruction)
                 {
-                    TAssign assignaux = linst.Ins as TAssign;
+                    AssignInstruction assignaux = linst.Ins as AssignInstruction;
 
                     Func<TExpression, TExpression, TExpression> a = (expValue, op) =>
                     {
@@ -352,9 +352,9 @@ namespace Compiler.Core
 
                     Free(ref exp);
                 }
-                else if (linst.Ins is TRead)
+                else if (linst.Ins is ReadInstruction)
                 {
-                    TRead readAux = linst.Ins as TRead;
+                    ReadInstruction readAux = linst.Ins as ReadInstruction;
 
                     InputForm inputRead = new InputForm();
                     inputRead.ShowDialog();
@@ -403,7 +403,7 @@ namespace Compiler.Core
             return TypeSymbol.U_EOF;
         }
 
-        private TypeSymbol ExecuteCall(TCall callaux)
+        private TypeSymbol ExecuteCall(CallInstruction callaux)
         {
             // 1 . handle the input variables
             TExpression exp0 = EvaluateExpression(callaux.Pin);
@@ -531,7 +531,7 @@ namespace Compiler.Core
                 }
                 else if (currexp.UL == TypeSymbol.U_VarProcedure)
                 {
-                    TCall callaux = currexp.ValCall;
+                    CallInstruction callaux = currexp.ValCall;
                     UL = ExecuteCall(callaux);
                     if (UL != TypeSymbol.U_Return)
                     {

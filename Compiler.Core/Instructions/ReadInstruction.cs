@@ -1,7 +1,7 @@
 ﻿namespace Compiler.Core
 {
     [System.Serializable]
-    class TRead
+    class ReadInstruction
     {
         internal TVar V { get; set; }
         internal TExpression index { get; set; }

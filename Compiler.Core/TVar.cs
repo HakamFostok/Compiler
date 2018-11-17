@@ -1,7 +1,7 @@
 ﻿namespace Compiler.Core
 {
     [System.Serializable]
-    class TVar : TIdentifier
+    class TVar : IdentifierInstruction
     {
         internal TItem items { get; set; }
     }

@@ -1,12 +1,12 @@
 ﻿namespace Compiler.Core
 {
     [System.Serializable]
-    abstract class TIdentifier
+    abstract class IdentifierInstruction
     {
-        internal TIdentifier Next { get; set; }
+        internal IdentifierInstruction Next { get; set; }
         internal string Name { get; set; }
         internal TypeSymbol UL { get; set; }
-        internal static T FindIdentifer<T>(string name, T varibale) where T : TIdentifier
+        internal static T FindIdentifer<T>(string name, T varibale) where T : IdentifierInstruction
         {
             T temp = varibale;
             while (temp != null)
@@ -21,7 +21,7 @@
             return null;
         }
 
-        internal static void AddIdentifier<T>(string name, ref T gid) where T : TIdentifier, new()
+        internal static void AddIdentifier<T>(string name, ref T gid) where T : IdentifierInstruction, new()
         {
             T temp = new T() { Name = name, UL = TypeSymbol.U_UnKown };
             temp.Next = (T)gid;

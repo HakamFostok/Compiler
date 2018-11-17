@@ -1,9 +1,9 @@
 ﻿namespace Compiler.Core
 {
     [System.Serializable]
-    class TDoWhile
+    class DoWhileInstruction
     {
         internal TExpression Cond { get; set; }
-        internal TInstruction Ins { get; set; }
+        internal BaseInstruction Ins { get; set; }
     }
 }

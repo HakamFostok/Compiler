@@ -1,7 +1,7 @@
 ﻿namespace Compiler.Core
 {
     [System.Serializable]
-    class TBreak
+    class BreakInstruction
     {
         internal TypeSymbol UL { get; set; }
     }

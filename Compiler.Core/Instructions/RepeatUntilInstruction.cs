@@ -2,10 +2,10 @@
 {
 #if doc
     [System.Serializable]
-    class TRepeatUntil
+    class RepeatUntilInstruction
     {
         internal TExpression Cond { get; set; }
-        internal TInstruction Ins { get; set; }
+        internal BaseInstruction Ins { get; set; }
     }
 
 #else

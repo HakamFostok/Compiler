@@ -1,7 +1,7 @@
 ﻿namespace Compiler.Core
 {
     [System.Serializable]
-    class TAssign
+    class AssignInstruction
     {
         internal TVar Var { get; set; }
         internal TExpression Exp { get; set; }

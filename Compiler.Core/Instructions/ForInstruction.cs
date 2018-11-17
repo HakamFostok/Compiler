@@ -1,9 +1,9 @@
 ﻿namespace Compiler.Core
 {
     [System.Serializable]
-    class TFor
+    class ForInstruction
     {
-        internal TInstruction Ins { get; set; }
+        internal BaseInstruction Ins { get; set; }
         internal TVar V { get; set; }
         internal TExpression ExpBegin { get; set; }
         internal TExpression ExpEnd { get; set; }

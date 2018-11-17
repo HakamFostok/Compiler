@@ -57,7 +57,7 @@ namespace Compiler.Core
             }
         }
 
-        private TDefine gDefine
+        private DefineInstruction gDefine
         {
             get
             {
@@ -97,7 +97,7 @@ namespace Compiler.Core
             }
         }
 
-        private TProcedure gProc
+        private ProcedureInstruction gProc
         {
             get
             {
@@ -137,7 +137,7 @@ namespace Compiler.Core
             }
         }
 
-        private TIdentifier G_curr_ID
+        private IdentifierInstruction G_curr_ID
         {
             get
             {
@@ -326,14 +326,14 @@ namespace Compiler.Core
 
                         if (UL == TypeSymbol.U_UnKown)
                         {
-                            TIdentifier.AddIdentifier(G_curr_Str, ref Locals.gdefine);
+                            IdentifierInstruction.AddIdentifier(G_curr_Str, ref Locals.gdefine);
                         }
                         if (UL == TypeSymbol.U_VarProcedure)
                         {
-                            TIdentifier.AddIdentifier(id.ToUpper(), ref Locals.gdefine);
+                            IdentifierInstruction.AddIdentifier(id.ToUpper(), ref Locals.gdefine);
                         }
 
-                        TDefine defAux = gDefine;
+                        DefineInstruction defAux = gDefine;
                         SkipSpaces();
 
                         if (!(CCInLine && (CC == '.' || char.IsNumber(CC) || CC == '\'')))
@@ -760,19 +760,19 @@ namespace Compiler.Core
             }
 
             string idUpperCase = id.ToUpper();
-            G_curr_ID = TIdentifier.FindIdentifer(idUpperCase, gVar);
+            G_curr_ID = IdentifierInstruction.FindIdentifer(idUpperCase, gVar);
             if (G_curr_ID != null)
             {
                 return TypeSymbol.U_Var;
             }
 
-            G_curr_ID = TIdentifier.FindIdentifer(idUpperCase, gDefine);
+            G_curr_ID = IdentifierInstruction.FindIdentifer(idUpperCase, gDefine);
             if (G_curr_ID != null)
             {
                 return TypeSymbol.U_VarDefine;
             }
 
-            G_curr_ID = TIdentifier.FindIdentifer(idUpperCase, gProc);
+            G_curr_ID = IdentifierInstruction.FindIdentifer(idUpperCase, gProc);
             if (G_curr_ID != null)
             {
                 return TypeSymbol.U_VarProcedure;

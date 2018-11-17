@@ -10,7 +10,7 @@ namespace Compiler.Core
         private TypeSymbol UL { get; set; }
         private List<WarningException> warnning { get; set; }
 
-        private TProcedure gProc
+        private ProcedureInstruction gProc
         {
             get
             {
@@ -18,7 +18,7 @@ namespace Compiler.Core
             }
         }
 
-        private TProcedure currProc
+        private ProcedureInstruction currProc
         {
             get
             {
@@ -38,7 +38,7 @@ namespace Compiler.Core
             }
         }
 
-        private TIdentifier G_curr_ID
+        private IdentifierInstruction G_curr_ID
         {
             get
             {
@@ -120,9 +120,9 @@ namespace Compiler.Core
             ReadProcedures();
         }
 
-        private TCall ReadCall(TProcedure procAux)
+        private CallInstruction ReadCall(ProcedureInstruction procAux)
         {
-            TCall callAux = new TCall { P = procAux };
+            CallInstruction callAux = new CallInstruction { P = procAux };
 
             // Code before Modify
 
@@ -185,7 +185,7 @@ namespace Compiler.Core
                 {
                     if (UL == TypeSymbol.U_UnKown)
                     {
-                        TIdentifier.AddIdentifier(G_curr_Str, ref Locals.gvar);
+                        IdentifierInstruction.AddIdentifier(G_curr_Str, ref Locals.gvar);
                         G_curr_ID = gVar;
                     }
                     else if (UL != TypeSymbol.U_Var)
@@ -424,12 +424,12 @@ namespace Compiler.Core
                 expNew.Prev = null;
 
                 TVar varAux = null;
-                TProcedure procAux = null;
+                ProcedureInstruction procAux = null;
                 TypeSymbol ulAux;
 
                 if (UL == TypeSymbol.U_VarDefine)   // if the variable define
                 {
-                    TDefine defAux = (TDefine)G_curr_ID;
+                    DefineInstruction defAux = (DefineInstruction)G_curr_ID;
                     expNew.UL = defAux.UL;
                     expNew.ValNB = defAux.ValNB;
                     expNew.ValStr = defAux.ValStr;
@@ -443,7 +443,7 @@ namespace Compiler.Core
 
                     if (UL == TypeSymbol.U_OpenParanthese)  // if the variblae unknown procedure
                     {
-                        TIdentifier.AddIdentifier(buffer, ref Locals.gproc);
+                        IdentifierInstruction.AddIdentifier(buffer, ref Locals.gproc);
                         procAux = gProc;
                         gProc.IsFunc = true;
                         //gProc.IsDefined = false;
@@ -456,7 +456,7 @@ namespace Compiler.Core
                     }
                     else                    // if the variblae unknown procedure , unknownvariable
                     {
-                        TIdentifier.AddIdentifier(buffer, ref Locals.gvar);
+                        IdentifierInstruction.AddIdentifier(buffer, ref Locals.gvar);
                         varAux = gVar;
                         ulAux = TypeSymbol.U_Var;
                     }
@@ -471,7 +471,7 @@ namespace Compiler.Core
                     }
                     else                                // if the variable known procedure
                     {
-                        procAux = (TProcedure)G_curr_ID;
+                        procAux = (ProcedureInstruction)G_curr_ID;
                     }
 
                     UL = LexicalUnit();
@@ -582,13 +582,13 @@ namespace Compiler.Core
 
                 if (UL == TypeSymbol.U_UnKown)
                 {
-                    TIdentifier.AddIdentifier(G_curr_Str, ref Locals.gproc);
+                    IdentifierInstruction.AddIdentifier(G_curr_Str, ref Locals.gproc);
                     currProc = gProc;
                     currProc.IsDefined = true;
                 }
                 else if (UL == TypeSymbol.U_VarProcedure)
                 {
-                    currProc = (TProcedure)G_curr_ID;
+                    currProc = (ProcedureInstruction)G_curr_ID;
                     if (currProc.IsDefined)
                     {
                         GetSyntaxError(SyntaxMessagesError.DuplicateDefination, currProc.Name);
@@ -624,7 +624,7 @@ namespace Compiler.Core
                         {
                             GetSyntaxError(WordMessagesError.NotFound, "Undifined variable");
                         }
-                        TIdentifier.AddIdentifier(G_curr_Str, ref Locals.gvar);
+                        IdentifierInstruction.AddIdentifier(G_curr_Str, ref Locals.gvar);
                         UL = LexicalUnit();
                         if (UL == TypeSymbol.U_Comma)
                         {
@@ -647,7 +647,7 @@ namespace Compiler.Core
                         {
                             GetSyntaxError(WordMessagesError.NotFound, "Undifined variable");
                         }
-                        TIdentifier.AddIdentifier(G_curr_Str, ref Locals.gvar);
+                        IdentifierInstruction.AddIdentifier(G_curr_Str, ref Locals.gvar);
                         UL = LexicalUnit();
                         if (UL == TypeSymbol.U_Comma)
                         {
@@ -683,7 +683,7 @@ namespace Compiler.Core
             }
         }
 
-        private TInstruction ReadOneOrListOfInstruction()
+        private BaseInstruction ReadOneOrListOfInstruction()
         {
             UL = LexicalUnit();
             if (UL == TypeSymbol.U_Begin || UL == TypeSymbol.U_OpenBraces)
@@ -691,13 +691,13 @@ namespace Compiler.Core
                 return ReadListOfInstruction();
             }
 
-            TInstruction newIns = new TInstruction();
+            BaseInstruction newIns = new BaseInstruction();
             newIns.Ins = ReadOneInstruction();
             newIns.Next = null;  // by default
             return newIns;
         }
 
-        private TInstruction ReadListOfInstruction()
+        private BaseInstruction ReadListOfInstruction()
         {
             if (UL != TypeSymbol.U_Begin && UL != TypeSymbol.U_OpenBraces)
             {
@@ -706,12 +706,12 @@ namespace Compiler.Core
 
             UL = LexicalUnit();
 
-            TInstruction firstInstuction = null;
-            TInstruction lastInstruction = null;
+            BaseInstruction firstInstuction = null;
+            BaseInstruction lastInstruction = null;
 
             while ((UL != TypeSymbol.U_ClosedBraces) && (UL != TypeSymbol.U_End) && (UL != TypeSymbol.U_EOF))
             {
-                TInstruction newInst = new TInstruction { Ins = ReadOneInstruction() };
+                BaseInstruction newInst = new BaseInstruction { Ins = ReadOneInstruction() };
                 if (firstInstuction == null)
                 {
                     firstInstuction = newInst;
@@ -783,10 +783,10 @@ namespace Compiler.Core
 
         private object HandleAssign()
         {
-            TAssign assignAux = new TAssign();
+            AssignInstruction assignAux = new AssignInstruction();
             if (UL == TypeSymbol.U_UnKown)
             {
-                TIdentifier.AddIdentifier(G_curr_Str, ref Locals.gvar);
+                IdentifierInstruction.AddIdentifier(G_curr_Str, ref Locals.gvar);
                 G_curr_ID = gVar;
             }
 
@@ -831,7 +831,7 @@ namespace Compiler.Core
 
         private object HandleIf()
         {
-            TIf ifAux = new TIf();
+            IfInstruction ifAux = new IfInstruction();
 
             UL = LexicalUnit();
             ifAux.Cond = ReadCondition();
@@ -850,7 +850,7 @@ namespace Compiler.Core
 
         private object HandleWhile()
         {
-            TWhile whileAux = new TWhile();
+            WhileInstruction whileAux = new WhileInstruction();
 
             UL = LexicalUnit();
             whileAux.Cond = ReadCondition();
@@ -864,11 +864,11 @@ namespace Compiler.Core
 
         private object HandleFor()
         {
-            TFor forAux = new TFor();
+            ForInstruction forAux = new ForInstruction();
             UL = LexicalUnit();
             if (UL == TypeSymbol.U_UnKown)
             {
-                TIdentifier.AddIdentifier(G_curr_Str, ref  Locals.gvar);
+                IdentifierInstruction.AddIdentifier(G_curr_Str, ref  Locals.gvar);
                 G_curr_ID = gVar;
             }
             else if (UL != TypeSymbol.U_Var)
@@ -914,7 +914,7 @@ namespace Compiler.Core
 
         private object HandleRepeatUntil()
         {
-            TRepeatUntil repeatAux = new TRepeatUntil();
+            RepeatUntilInstruction repeatAux = new RepeatUntilInstruction();
             repeatAux.Ins = ReadOneOrListOfInstruction();
             if (UL != TypeSymbol.U_Until)
             {
@@ -933,7 +933,7 @@ namespace Compiler.Core
 
         private object HandleDoWhile()
         {
-            TDoWhile doWhileAux = new TDoWhile();
+            DoWhileInstruction doWhileAux = new DoWhileInstruction();
             doWhileAux.Ins = ReadOneOrListOfInstruction();
             if (UL != TypeSymbol.U_While)
             {
@@ -959,7 +959,7 @@ namespace Compiler.Core
             }
             if (UL == TypeSymbol.U_UnKown)
             {
-                TIdentifier.AddIdentifier(G_curr_Str, ref Locals.gproc);
+                IdentifierInstruction.AddIdentifier(G_curr_Str, ref Locals.gproc);
                 // by default
                 gProc.IsDefined = false;
                 gProc.IsFunc = false;
@@ -969,14 +969,14 @@ namespace Compiler.Core
                 gProc.LVar = null;
                 G_curr_ID = gProc;
             }
-            if (((TProcedure)G_curr_ID).IsFunc)
+            if (((ProcedureInstruction)G_curr_ID).IsFunc)
             {
                 GetSyntaxError(SyntaxMessagesError.CallFunction);
             }
 
-            TProcedure procAux = (TProcedure)G_curr_ID;
+            ProcedureInstruction procAux = (ProcedureInstruction)G_curr_ID;
             UL = LexicalUnit();
-            TCall callAux = ReadCall(procAux);
+            CallInstruction callAux = ReadCall(procAux);
 
             if (UL != TypeSymbol.U_SemiColon)
             {
@@ -1048,7 +1048,7 @@ namespace Compiler.Core
 
         private object HandleRead()
         {
-            TRead readAux = new TRead();
+            ReadInstruction readAux = new ReadInstruction();
 
             if (LexicalUnit() != TypeSymbol.U_OpenParanthese)
             {
@@ -1058,7 +1058,7 @@ namespace Compiler.Core
             UL = LexicalUnit();
             if (UL == TypeSymbol.U_UnKown)
             {
-                TIdentifier.AddIdentifier(G_curr_Str, ref Locals.gvar);
+                IdentifierInstruction.AddIdentifier(G_curr_Str, ref Locals.gvar);
                 readAux.V = gVar;
             }
             else if (UL == TypeSymbol.U_Var)
@@ -1100,7 +1100,7 @@ namespace Compiler.Core
 
         private object HandleReturn()
         {
-            TReturn returnAux = new TReturn();
+            ReturnInstruction returnAux = new ReturnInstruction();
             UL = LexicalUnit();
             returnAux.Exp = ReadExpression();
             if (UL != TypeSymbol.U_SemiColon)
@@ -1113,7 +1113,7 @@ namespace Compiler.Core
 
         private object HandleBreadHaltExit()
         {
-            TBreak breakAux = new TBreak();
+            BreakInstruction breakAux = new BreakInstruction();
             breakAux.UL = UL;
             UL = LexicalUnit();
             if (UL != TypeSymbol.U_SemiColon)

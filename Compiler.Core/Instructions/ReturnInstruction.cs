@@ -1,7 +1,7 @@
 ﻿namespace Compiler.Core
 {
     [System.Serializable]
-    class TReturn
+    class ReturnInstruction
     {
         internal TExpression Exp { get; set; }
     }

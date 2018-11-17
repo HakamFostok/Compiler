@@ -2,8 +2,8 @@
 {
     class Variables
     {
-        internal TDefine gdefine;
-        internal TDefine Gdefine
+        internal DefineInstruction gdefine;
+        internal DefineInstruction Gdefine
         {
             get
             {
@@ -28,8 +28,8 @@
             }
         }
 
-        internal TProcedure gproc;
-        internal TProcedure GPorc
+        internal ProcedureInstruction gproc;
+        internal ProcedureInstruction GPorc
         {
             get
             {
@@ -43,14 +43,14 @@
 
         internal TFile Gfile { get; set; }
         internal TFile CurrFile { get; set; }
-        internal TProcedure CurrPorc { get; set; }
+        internal ProcedureInstruction CurrPorc { get; set; }
         internal int lineNumber { get; set; }
         internal int CI { get; set; }
         internal string[] CF { get; set; }
         internal string CL { get; set; }
         internal double G_curr_NB { get; set; }
         internal string G_curr_str { get; set; }
-        internal TIdentifier G_curr_id { get; set; }
+        internal IdentifierInstruction G_curr_id { get; set; }
 
         internal void initializeForRecompile()
         {

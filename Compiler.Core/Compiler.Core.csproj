@@ -48,8 +48,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CompilerLibraryResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="CompileTimeErrorException.cs" />
-    <Compile Include="ErrorBaseException.cs" />
+    <Compile Include="Exceptions\CompileTimeErrorException.cs" />
+    <Compile Include="Exceptions\ErrorBaseException.cs" />
     <Compile Include="Executer.cs" />
     <Compile Include="InputForm.cs">
       <SubType>Form</SubType>
@@ -58,48 +58,52 @@
       <DependentUpon>InputForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LexicalAnalyst.cs" />
-    <Compile Include="LexicalErrorException.cs" />
-    <Compile Include="MacroErrorException.cs" />
+    <Compile Include="Exceptions\LexicalErrorException.cs" />
+    <Compile Include="Exceptions\MacroErrorException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RuntimeErrorException.cs" />
+    <Compile Include="Exceptions\RuntimeErrorException.cs" />
     <Compile Include="RuntimeMessagesError.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RuntimeMessagesError.resx</DependentUpon>
     </Compile>
     <Compile Include="SyntaxAnalyst.cs" />
-    <Compile Include="SyntaxErrorException.cs" />
+    <Compile Include="Exceptions\SyntaxErrorException.cs" />
     <Compile Include="SyntaxMessagesError.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SyntaxMessagesError.resx</DependentUpon>
     </Compile>
-    <Compile Include="TAssign.cs" />
-    <Compile Include="TBreak.cs" />
-    <Compile Include="TCall.cs" />
-    <Compile Include="TDefine.cs" />
-    <Compile Include="TDoWhile.cs" />
+    <Compile Include="Instructions\AssignInstruction.cs" />
+    <Compile Include="Instructions\BreakInstruction.cs" />
+    <Compile Include="Instructions\CallInstruction.cs" />
+    <Compile Include="Instructions\DefineInstruction.cs" />
+    <Compile Include="Instructions\DoWhileInstruction.cs" />
     <Compile Include="TExpression.cs" />
     <Compile Include="TFile.cs" />
-    <Compile Include="TFor.cs" />
-    <Compile Include="TIdentifier.cs" />
-    <Compile Include="TIf.cs" />
-    <Compile Include="TInstruction.cs" />
+    <Compile Include="Instructions\ForInstruction.cs" />
+    <Compile Include="Instructions\IdentifierInstruction.cs" />
+    <Compile Include="Instructions\IfInstruction.cs" />
+    <Compile Include="Instructions\BaseInstruction.cs" />
     <Compile Include="TItem.cs" />
     <Compile Include="TListVar.cs" />
-    <Compile Include="TProcedure.cs" />
-    <Compile Include="TRead.cs" />
-    <Compile Include="TRepeatUntil.cs" />
-    <Compile Include="TReturn.cs" />
+    <Compile Include="Instructions\ProcedureInstruction.cs" />
+    <Compile Include="Instructions\ReadInstruction.cs" />
+    <Compile Include="Instructions\RepeatUntilInstruction.cs" />
+    <Compile Include="Instructions\ReturnInstruction.cs" />
     <Compile Include="TSymbol.cs" />
     <Compile Include="TVar.cs" />
-    <Compile Include="TWhile.cs" />
+    <Compile Include="Instructions\WhileInstruction.cs" />
     <Compile Include="TWrite.cs" />
     <Compile Include="TypeSymbol.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="Variables.cs" />
-    <Compile Include="WarningException.cs" />
-    <Compile Include="WordMessagesError.Designer.cs" />
+    <Compile Include="Exceptions\WarningException.cs" />
+    <Compile Include="WordMessagesError.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WordMessagesError.resx</DependentUpon>
+    </Compile>
     <Compile Include="WriteEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -121,7 +125,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SyntaxMessagesError.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="WordMessagesError.resx" />
+    <EmbeddedResource Include="WordMessagesError.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WordMessagesError.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

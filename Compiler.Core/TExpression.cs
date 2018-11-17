@@ -9,7 +9,7 @@
         internal string ValStr { get; set; }
         internal double ValNB { get; set; }
         internal TVar ValVar { get; set; }
-        internal TCall ValCall { get; set; }
+        internal CallInstruction ValCall { get; set; }
         internal TExpression Index { get; set; }
 
         internal static TExpression CopyExpression(TExpression exp)
