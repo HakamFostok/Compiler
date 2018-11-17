@@ -11,7 +11,6 @@ namespace Compiler.Interface.ViewModels
     {
         #region StatusBar
 
-
         private CompilerStatus status;
         public CompilerStatus Status
         {

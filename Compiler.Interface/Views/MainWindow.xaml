@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Compiler.Interface"
         xmlns:prism="http://prismlibrary.com/"
+        xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
+        WindowState="Maximized"
         Title="Compiler" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -16,14 +18,52 @@
         </Grid.RowDefinitions>
         <Menu Height="Auto" Grid.Row="0">
             <MenuItem Header="_File">
+                <MenuItem Header="_New"/>
                 <MenuItem Header="_Open"/>
                 <MenuItem Header="_Close"/>
+                <MenuItem Header="_Close All"/>
+                <Separator />
                 <MenuItem Header="_Save"/>
+                <MenuItem Header="_Save All"/>
+                <MenuItem Header="_Save As"/>
+                <Separator />
+                <MenuItem Header="_Print"/>
+                <Separator />
+                <MenuItem Header="_Exit"/>
+                <Separator />
+            </MenuItem>
+
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Undo"/>
+                <MenuItem Header="_Redo"/>
+                <MenuItem Header="_Select All"/>
+                <MenuItem Header="_Deselect All"/>
+                <MenuItem Header="_Clear"/>
+                <Separator />
+                <MenuItem Header="_Cut"/>
+                <MenuItem Header="_Copy"/>
+                <MenuItem Header="_Paste"/>
+                <Separator />
+                <MenuItem Header="Options"/>
+            </MenuItem>
+
+            <MenuItem Header="_Debug">
+                <MenuItem Header="_Build"/>
+                <MenuItem Header="_Execute"/>
+                <MenuItem Header="_Execute From Object File"/>
+            </MenuItem>
+
+            <MenuItem Header="_Help">
+                <MenuItem Header="About"/>
             </MenuItem>
         </Menu>
-        <Grid Grid.Row="1">
-            <RichTextBox />
-        </Grid>
+        <DockPanel Grid.Row="1">
+            <TabControl Margin="5">
+                <TabItem Header="File 1">
+                    <TextBox VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding File}"/>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
         <StatusBar Grid.Row="2">
             <StatusBarItem>
                 <TextBlock Text="{Binding StatusDescription}" />
