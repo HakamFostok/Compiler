@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Compiler.Interface"
+        xmlns:views="clr-namespace:Compiler.Interface.Views"
         xmlns:prism="http://prismlibrary.com/"
         xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         prism:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         WindowState="Maximized"
         Title="Compiler" Height="450" Width="800">
@@ -44,7 +46,17 @@
                 <MenuItem Header="_Copy"/>
                 <MenuItem Header="_Paste"/>
                 <Separator />
-                <MenuItem Header="Options"/>
+                <MenuItem Header="Options" Command="{Binding OptionsCommand}">
+                    <i:Interaction.Triggers>
+                        <prism:InteractionRequestTrigger SourceObject="{Binding OptionsWindowInteractionRequest, Mode=OneWay}" >
+                            <prism:PopupWindowAction WindowStartupLocation="CenterScreen" IsModal="True">
+                                <prism:PopupWindowAction.WindowContent>
+                                    <views:OptionsWindow />
+                                </prism:PopupWindowAction.WindowContent>
+                            </prism:PopupWindowAction>
+                        </prism:InteractionRequestTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
             </MenuItem>
 
             <MenuItem Header="_Debug">
@@ -54,7 +66,17 @@
             </MenuItem>
 
             <MenuItem Header="_Help">
-                <MenuItem Header="About"/>
+                <MenuItem Header="About" Command="{Binding AboutCommand}">
+                    <i:Interaction.Triggers>
+                        <prism:InteractionRequestTrigger SourceObject="{Binding AboutWindowInteractionRequest, Mode=OneWay}" >
+                            <prism:PopupWindowAction WindowStartupLocation="CenterScreen" IsModal="True">
+                                <prism:PopupWindowAction.WindowContent>
+                                    <views:AboutWindow />
+                                </prism:PopupWindowAction.WindowContent>
+                            </prism:PopupWindowAction>
+                        </prism:InteractionRequestTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
             </MenuItem>
         </Menu>
         <DockPanel Grid.Row="1">

@@ -6,10 +6,15 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Compiler.Core
 {
+    public interface ICompiler
+    {
+        void CompileMainProgram(string fileName);
+    }
+
     /// <summary>
     /// Represent the compiler that will provide service to compile files in specific langauge.
     /// </summary>
-    public class AubCompiler
+    public class AubCompiler : ICompiler
     {
 
 #if MyCode
@@ -181,7 +186,7 @@ namespace Compiler.Core
             }
 
             string[] dirs = gFile.Name.Split('\\');
-            dir = dirs.Take(dirs.Length - 1).Select(str => str + "\\").Aggregate((one,two) => one + two) + dirs.Last().Split('.')[0] + ".obj";
+            dir = dirs.Take(dirs.Length - 1).Select(str => str + "\\").Aggregate((one, two) => one + two) + dirs.Last().Split('.')[0] + ".obj";
             using (FileStream writer = new FileStream(dir, FileMode.Create))
             {
                 formatter.Serialize(writer, gProc);

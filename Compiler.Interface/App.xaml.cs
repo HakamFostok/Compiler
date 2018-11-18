@@ -1,4 +1,6 @@
-﻿using Prism.Ioc;
+﻿using Compiler.Core;
+using Compiler.Interface.Properties;
+using Prism.Ioc;
 using Prism.Unity;
 using System;
 using System.Collections.Generic;
@@ -22,7 +24,8 @@ namespace Compiler.Interface
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            
+            containerRegistry.RegisterInstance<ICompiler>(new AubCompiler());
+            containerRegistry.RegisterInstance<Settings>(new Settings());
         }
     }
 }
