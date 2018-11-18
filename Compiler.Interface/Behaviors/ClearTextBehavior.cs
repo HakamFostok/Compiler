@@ -30,7 +30,10 @@ namespace Compiler.Interface
         {
             // when closetrigger is true, close the window
             if (this.ClearTextTrigger)
+            {
                 this.AssociatedObject.Clear();
+                this.ClearTextTrigger = false;
+            }
         }
     }
 }

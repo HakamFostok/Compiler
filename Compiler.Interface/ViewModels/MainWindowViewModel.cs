@@ -118,14 +118,12 @@ namespace Compiler.Interface.ViewModels
 
         private void DeselectCommandExecuted()
         {
-            SelectTrigger = false;
             DeselectTrigger = true;
         }
 
         private void SelectAllCommandExecuted()
         {
             SelectTrigger = true;
-            DeselectTrigger = false;
         }
 
         private void RedoCommandExecuted()
