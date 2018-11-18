@@ -15,12 +15,43 @@ using Unity.Attributes;
 
 namespace Compiler.Interface.ViewModels
 {
-    public class WriteEventPubSub : PubSubEvent<WriteEventArgs>
-    {
-    }
-
     public class MainWindowViewModel : BindableBase
     {
+        private bool redoTrigger;
+        public bool RedoTrigger
+        {
+            get => redoTrigger;
+            set => SetProperty(ref redoTrigger, value);
+        }
+
+        private bool undoTrigger;
+        public bool UndoTrigger
+        {
+            get => undoTrigger;
+            set => SetProperty(ref undoTrigger, value);
+        }
+
+        private bool clearTextTrigger;
+        public bool ClearTextTrigger
+        {
+            get => clearTextTrigger;
+            set => SetProperty(ref clearTextTrigger, value);
+        }
+
+        private bool selectTrigger;
+        public bool SelectTrigger
+        {
+            get => selectTrigger;
+            set => SetProperty(ref selectTrigger, value);
+        }
+
+        private bool deselectTrigger;
+        public bool DeselectTrigger
+        {
+            get => deselectTrigger;
+            set => SetProperty(ref deselectTrigger, value);
+        }
+
         [Dependency]
         internal ICompiler compiler { get; set; }
 
@@ -56,7 +87,57 @@ namespace Compiler.Interface.ViewModels
             OptionsCommand = new DelegateCommand(OptionsCommandExecuted);
             ExitApplicationCommand = new DelegateCommand(ExitApplicationCommandExecuted);
 
+            UndoCommand = new DelegateCommand(UndoCommandExecuted);
+            RedoCommand = new DelegateCommand(RedoCommandExecuted);
+            SelectAllCommand = new DelegateCommand(SelectAllCommandExecuted);
+            DeselectCommand = new DelegateCommand(DeselectCommandExecuted);
+            ClearCommand = new DelegateCommand(ClearCommandExecuted);
+            CutCommand = new DelegateCommand(CutCommandExecuted);
+            CopyCommand = new DelegateCommand(CopyCommandExecuted);
+            PasteCommand = new DelegateCommand(PasteCommandExecuted);
+
             EventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+        }
+
+        private void PasteCommandExecuted()
+        {
+        }
+
+        private void CopyCommandExecuted()
+        {
+        }
+
+        private void CutCommandExecuted()
+        {
+        }
+
+        private void ClearCommandExecuted()
+        {
+            ClearTextTrigger = true;
+        }
+
+        private void DeselectCommandExecuted()
+        {
+            SelectTrigger = false;
+            DeselectTrigger = true;
+        }
+
+        private void SelectAllCommandExecuted()
+        {
+            SelectTrigger = true;
+            DeselectTrigger = false;
+        }
+
+        private void RedoCommandExecuted()
+        {
+            RedoTrigger = true;
+            RedoTrigger = false;
+        }
+
+        private void UndoCommandExecuted()
+        {
+            UndoTrigger = true;
+            UndoTrigger = false;
         }
 
         private void ExitApplicationCommandExecuted()
@@ -79,6 +160,15 @@ namespace Compiler.Interface.ViewModels
         public ICommand AboutCommand { get; }
         public ICommand OptionsCommand { get; }
         public ICommand ExitApplicationCommand { get; }
+
+        public ICommand UndoCommand { get; }
+        public ICommand RedoCommand { get; }
+        public ICommand SelectAllCommand { get; }
+        public ICommand DeselectCommand { get; }
+        public ICommand ClearCommand { get; }
+        public ICommand CutCommand { get; }
+        public ICommand CopyCommand { get; }
+        public ICommand PasteCommand { get; }
 
         private void BuildCommandExecuted()
         {

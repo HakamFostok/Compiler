@@ -44,15 +44,15 @@
             </MenuItem>
 
             <MenuItem Header="_Edit">
-                <MenuItem Header="_Undo"/>
-                <MenuItem Header="_Redo"/>
-                <MenuItem Header="_Select All"/>
-                <MenuItem Header="_Deselect All"/>
-                <MenuItem Header="_Clear"/>
+                <MenuItem Header="_Undo" Command="{Binding UndoCommand}"/>
+                <MenuItem Header="_Redo" Command="{Binding RedoCommand}"/>
+                <MenuItem Header="_Select All" Command="{Binding SelectAllCommand}"/>
+                <MenuItem Header="_Deselect All" Command="{Binding DeselectCommand}"/>
+                <MenuItem Header="_Clear" Command="{Binding ClearCommand}"/>
                 <Separator />
-                <MenuItem Header="_Cut"/>
-                <MenuItem Header="_Copy"/>
-                <MenuItem Header="_Paste"/>
+                <MenuItem Header="_Cut" Command="{Binding CutCommand}"/>
+                <MenuItem Header="_Copy" Command="{Binding CopyCommand}"/>
+                <MenuItem Header="_Paste" Command="{Binding PasteCommand}"/>
                 <Separator />
                 <MenuItem Header="Options" Command="{Binding OptionsCommand}">
                     <i:Interaction.Triggers>
@@ -90,7 +90,15 @@
         <DockPanel Grid.Row="1">
             <TabControl Margin="5">
                 <TabItem Header="File 1">
-                    <TextBox VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding File}"/>
+                    <TextBox VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding File}">
+                        <i:Interaction.Behaviors>
+                            <local:SelectAllTextBehavior SelectTrigger="{Binding SelectTrigger}" />
+                            <local:DeselectAllTextBehavior DeselectTrigger="{Binding DeselectTrigger}" />
+                            <local:ClearTextBehavior ClearTextTrigger="{Binding ClearTextTrigger}" />
+                            <local:RedoBehavior RedoTrigger="{Binding RedoTrigger}" />
+                            <local:UndoBehavior UndoTrigger="{Binding UndoTrigger}" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
                 </TabItem>
             </TabControl>
         </DockPanel>
