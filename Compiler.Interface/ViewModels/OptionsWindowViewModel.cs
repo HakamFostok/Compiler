@@ -1,5 +1,6 @@
 ﻿using Compiler.Interface.Properties;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 using System;
@@ -14,6 +15,7 @@ namespace Compiler.Interface.ViewModels
 {
     public class OptionsWindowViewModel : BindableBase, IInteractionRequestAware
     {
+     
         private bool reloadFiles;
         public bool ReloadFiles
         {
@@ -38,6 +40,7 @@ namespace Compiler.Interface.ViewModels
 
             ReloadFiles = Settings.Default.ReloadFiles;
             AutoSave = Settings.Default.AutoSave;
+
         }
 
         private void SaveCommandExecuted()

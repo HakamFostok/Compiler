@@ -1,5 +1,7 @@
-﻿using Compiler.Core;
+﻿using CommonServiceLocator;
+using Compiler.Core;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 using System;
@@ -7,18 +9,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Unity.Attributes;
 
 namespace Compiler.Interface.ViewModels
 {
+    public class WriteEventPubSub : PubSubEvent<WriteEventArgs>
+    {
+    }
+
     public class MainWindowViewModel : BindableBase
     {
         [Dependency]
         internal ICompiler compiler { get; set; }
 
+        internal IEventAggregator EventAggregator { get; }
+
         public InteractionRequest<Notification> AboutWindowInteractionRequest { get; } = new InteractionRequest<Notification>();
         public InteractionRequest<Notification> OptionsWindowInteractionRequest { get; } = new InteractionRequest<Notification>();
+        public InteractionRequest<Notification> ConsoleWindowInteractionRequest { get; } = new InteractionRequest<Notification>();
 
         #region StatusBar
 
@@ -44,6 +54,14 @@ namespace Compiler.Interface.ViewModels
             ExecuteFromObjFileCommand = new DelegateCommand(ExecuteFromObjFileCommandExecuted);
             AboutCommand = new DelegateCommand(AboutCommandExecuted);
             OptionsCommand = new DelegateCommand(OptionsCommandExecuted);
+            ExitApplicationCommand = new DelegateCommand(ExitApplicationCommandExecuted);
+
+            EventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+        }
+
+        private void ExitApplicationCommandExecuted()
+        {
+            Application.Current.Shutdown();
         }
 
         #endregion
@@ -60,6 +78,7 @@ namespace Compiler.Interface.ViewModels
         public ICommand ExecuteFromObjFileCommand { get; }
         public ICommand AboutCommand { get; }
         public ICommand OptionsCommand { get; }
+        public ICommand ExitApplicationCommand { get; }
 
         private void BuildCommandExecuted()
         {
@@ -77,7 +96,18 @@ namespace Compiler.Interface.ViewModels
         {
             try
             {
-                compiler.CompileMainProgram("file1");
+                //compiler.CompileMainProgram("file1");
+                ConsoleWindowInteractionRequest.Raise(new Notification { Title = "Console" });
+
+                Executer exe = new Executer();
+
+                Action<object, WriteEventArgs> writeHandler = (obj, eve) =>
+                {
+                    EventAggregator.GetEvent<WriteEventPubSub>().Publish(eve);
+                };
+
+                exe.EndOfExecute += new EventHandler<WriteEventArgs>(writeHandler);
+                exe.WriteEvent += new EventHandler<WriteEventArgs>(writeHandler);
             }
             catch (Exception ex)
             {
@@ -87,7 +117,10 @@ namespace Compiler.Interface.ViewModels
 
         private void ExecuteFromObjFileCommandExecuted()
         {
-            try { }
+            try
+            {
+
+            }
             catch (Exception ex)
             {
 

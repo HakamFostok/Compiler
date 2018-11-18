@@ -12,6 +12,15 @@
         mc:Ignorable="d"
         WindowState="Maximized"
         Title="Compiler" Height="450" Width="800">
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding ConsoleWindowInteractionRequest, Mode=OneWay}" >
+            <prism:PopupWindowAction WindowStartupLocation="CenterScreen" IsModal="True">
+                <prism:PopupWindowAction.WindowContent>
+                    <views:ConsoleWindow />
+                </prism:PopupWindowAction.WindowContent>
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -31,8 +40,7 @@
                 <Separator />
                 <MenuItem Header="_Print"/>
                 <Separator />
-                <MenuItem Header="_Exit"/>
-                <Separator />
+                <MenuItem Header="_Exit" Command="{Binding ExitApplicationCommand}"/>
             </MenuItem>
 
             <MenuItem Header="_Edit">

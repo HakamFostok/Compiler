@@ -45,11 +45,7 @@ namespace Compiler.Core
                     GetRuntimeError(RuntimeMessagesError.NoMain);
                 }
 
-                EventHandler<WriteEventArgs> temp = EndOfExecute;
-                if (temp != null)
-                {
-                    temp(this, new WriteEventArgs { IsLine = true, Line = "End of Executing... Press Enter to Exit" });
-                }
+                EndOfExecute?.Invoke(this, new WriteEventArgs(true, "End of Executing... Press Enter to Exit", true));
             }
         }
 
@@ -313,7 +309,7 @@ namespace Compiler.Core
                         Free(ref iexp);
                     }
 
-                    Free(ref  exp0);
+                    Free(ref exp0);
                 }
 
                 else if (linst.Ins is TWrite)
@@ -344,11 +340,7 @@ namespace Compiler.Core
                         exp = exp.Next;
                     }
 
-                    EventHandler<WriteEventArgs> temp = WriteEvent;
-                    if (temp != null)
-                    {
-                        temp(this, new WriteEventArgs { IsLine = writeAux.isLn, Line = output });
-                    }
+                    WriteEvent?.Invoke(this, new WriteEventArgs(writeAux.isLn, output, false));
 
                     Free(ref exp);
                 }

@@ -6,8 +6,6 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
-    
-
     <StackPanel Margin="10">
         <GroupBox Header="Options">
             <StackPanel Margin="10">
