@@ -27,66 +27,69 @@
             <RowDefinition />
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Menu Height="Auto" Grid.Row="0">
-            <MenuItem Header="_File">
-                <MenuItem Header="_New"/>
-                <MenuItem Header="_Open"/>
-                <MenuItem Header="_Close"/>
-                <MenuItem Header="_Close All"/>
-                <Separator />
-                <MenuItem Header="_Save"/>
-                <MenuItem Header="_Save All"/>
-                <MenuItem Header="_Save As"/>
-                <Separator />
-                <MenuItem Header="_Print"/>
-                <Separator />
-                <MenuItem Header="_Exit" Command="{Binding ExitApplicationCommand}"/>
-            </MenuItem>
-
-            <MenuItem Header="_Edit">
-                <MenuItem Header="_Undo" Command="{Binding UndoCommand}"/>
-                <MenuItem Header="_Redo" Command="{Binding RedoCommand}"/>
-                <MenuItem Header="_Select All" Command="{Binding SelectAllCommand}"/>
-                <MenuItem Header="_Deselect All" Command="{Binding DeselectCommand}"/>
-                <MenuItem Header="_Clear" Command="{Binding ClearCommand}"/>
-                <Separator />
-                <MenuItem Header="_Cut" Command="{Binding CutCommand}"/>
-                <MenuItem Header="_Copy" Command="{Binding CopyCommand}"/>
-                <MenuItem Header="_Paste" Command="{Binding PasteCommand}"/>
-                <Separator />
-                <MenuItem Header="Options" Command="{Binding OptionsCommand}">
-                    <i:Interaction.Triggers>
-                        <prism:InteractionRequestTrigger SourceObject="{Binding OptionsWindowInteractionRequest, Mode=OneWay}" >
-                            <prism:PopupWindowAction WindowStartupLocation="CenterScreen" IsModal="True">
-                                <prism:PopupWindowAction.WindowContent>
-                                    <views:OptionsWindow />
-                                </prism:PopupWindowAction.WindowContent>
-                            </prism:PopupWindowAction>
-                        </prism:InteractionRequestTrigger>
-                    </i:Interaction.Triggers>
+        <StackPanel Grid.Row="0">
+            <TextBox Style="{StaticResource ErrorMessageStyle}" Text="{Binding ErrorMessage}" />
+            <Menu Height="Auto" >
+                <MenuItem Header="_File">
+                    <MenuItem Header="_New"/>
+                    <MenuItem Header="_Open"/>
+                    <MenuItem Header="_Close"/>
+                    <MenuItem Header="_Close All"/>
+                    <Separator />
+                    <MenuItem Header="_Save"/>
+                    <MenuItem Header="_Save All"/>
+                    <MenuItem Header="_Save As"/>
+                    <Separator />
+                    <MenuItem Header="_Print"/>
+                    <Separator />
+                    <MenuItem Header="_Exit" Command="{Binding ExitApplicationCommand}"/>
                 </MenuItem>
-            </MenuItem>
 
-            <MenuItem Header="_Debug">
-                <MenuItem Header="_Build" Command="{Binding BuildCommand}"/>
-                <MenuItem Header="_Execute" Command="{Binding ExecuteCommand}"/>
-                <MenuItem Header="_Execute From Object File" Command="{Binding ExecuteFromObjFileCommand}"/>
-            </MenuItem>
-
-            <MenuItem Header="_Help">
-                <MenuItem Header="About" Command="{Binding AboutCommand}">
-                    <i:Interaction.Triggers>
-                        <prism:InteractionRequestTrigger SourceObject="{Binding AboutWindowInteractionRequest, Mode=OneWay}" >
-                            <prism:PopupWindowAction WindowStartupLocation="CenterScreen" IsModal="True">
-                                <prism:PopupWindowAction.WindowContent>
-                                    <views:AboutWindow />
-                                </prism:PopupWindowAction.WindowContent>
-                            </prism:PopupWindowAction>
-                        </prism:InteractionRequestTrigger>
-                    </i:Interaction.Triggers>
+                <MenuItem Header="_Edit">
+                    <MenuItem Header="_Undo" Command="{Binding UndoCommand}"/>
+                    <MenuItem Header="_Redo" Command="{Binding RedoCommand}"/>
+                    <MenuItem Header="_Select All" Command="{Binding SelectAllCommand}"/>
+                    <MenuItem Header="_Deselect All" Command="{Binding DeselectCommand}"/>
+                    <MenuItem Header="_Clear" Command="{Binding ClearCommand}"/>
+                    <Separator />
+                    <MenuItem Header="_Cut" Command="{Binding CutCommand}"/>
+                    <MenuItem Header="_Copy" Command="{Binding CopyCommand}"/>
+                    <MenuItem Header="_Paste" Command="{Binding PasteCommand}"/>
+                    <Separator />
+                    <MenuItem Header="Options" Command="{Binding OptionsCommand}">
+                        <i:Interaction.Triggers>
+                            <prism:InteractionRequestTrigger SourceObject="{Binding OptionsWindowInteractionRequest, Mode=OneWay}" >
+                                <prism:PopupWindowAction WindowStartupLocation="CenterScreen" IsModal="True">
+                                    <prism:PopupWindowAction.WindowContent>
+                                        <views:OptionsWindow />
+                                    </prism:PopupWindowAction.WindowContent>
+                                </prism:PopupWindowAction>
+                            </prism:InteractionRequestTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
                 </MenuItem>
-            </MenuItem>
-        </Menu>
+
+                <MenuItem Header="_Debug">
+                    <MenuItem Header="_Build" Command="{Binding BuildCommand}"/>
+                    <MenuItem Header="_Execute" Command="{Binding ExecuteCommand}"/>
+                    <MenuItem Header="_Execute From Object File" Command="{Binding ExecuteFromObjFileCommand}"/>
+                </MenuItem>
+
+                <MenuItem Header="_Help">
+                    <MenuItem Header="About" Command="{Binding AboutCommand}">
+                        <i:Interaction.Triggers>
+                            <prism:InteractionRequestTrigger SourceObject="{Binding AboutWindowInteractionRequest, Mode=OneWay}" >
+                                <prism:PopupWindowAction WindowStartupLocation="CenterScreen" IsModal="True">
+                                    <prism:PopupWindowAction.WindowContent>
+                                        <views:AboutWindow />
+                                    </prism:PopupWindowAction.WindowContent>
+                                </prism:PopupWindowAction>
+                            </prism:InteractionRequestTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+        </StackPanel>
         <DockPanel Grid.Row="1">
             <TabControl Margin="5">
                 <TabItem Header="File 1">

@@ -8,6 +8,13 @@ namespace Compiler.Interface.ViewModels
 {
     public abstract class BaseViewModel : BindableBase
     {
+        private string errorMessage;
+        public string ErrorMessage
+        {
+            get => errorMessage;
+            set => SetProperty(ref errorMessage, value);
+        }
+
         [Dependency]
         protected ILogger Logger { get; set; }
 
@@ -21,6 +28,9 @@ namespace Compiler.Interface.ViewModels
         protected void HandleException(Exception ex)
         {
             Logger.Error(ex);
+
+            ErrorMessage = string.Empty;    // this is a workaround
+            ErrorMessage = ex.Message;
         }
     }
 }
