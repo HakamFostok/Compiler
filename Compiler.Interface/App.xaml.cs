@@ -1,5 +1,6 @@
 ﻿using Compiler.Core;
 using Compiler.Interface.Properties;
+using NLog;
 using Prism.Events;
 using Prism.Ioc;
 using Prism.Unity;
@@ -27,7 +28,7 @@ namespace Compiler.Interface
         {
             containerRegistry.RegisterInstance<ICompiler>(new AubCompiler());
             containerRegistry.RegisterInstance<IEventAggregator>(new EventAggregator());
-
+            containerRegistry.RegisterInstance<ILogger>(LogManager.GetCurrentClassLogger());
         }
     }
 }

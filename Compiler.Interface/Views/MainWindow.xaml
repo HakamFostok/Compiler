@@ -92,11 +92,11 @@
                 <TabItem Header="File 1">
                     <TextBox VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding File}">
                         <i:Interaction.Behaviors>
-                            <local:SelectAllTextBehavior SelectTrigger="{Binding SelectTrigger}" />
-                            <local:DeselectAllTextBehavior DeselectTrigger="{Binding DeselectTrigger}" />
-                            <local:ClearTextBehavior ClearTextTrigger="{Binding ClearTextTrigger}" />
-                            <local:RedoBehavior RedoTrigger="{Binding RedoTrigger}" />
-                            <local:UndoBehavior UndoTrigger="{Binding UndoTrigger}" />
+                            <local:SelectAllTextBehavior SelectTrigger="{Binding SelectTrigger, Mode=TwoWay}" />
+                            <local:DeselectAllTextBehavior DeselectTrigger="{Binding DeselectTrigger, Mode=TwoWay}" />
+                            <local:ClearTextBehavior ClearTextTrigger="{Binding ClearTextTrigger, Mode=TwoWay}" />
+                            <local:RedoBehavior RedoTrigger="{Binding RedoTrigger, Mode=TwoWay}" />
+                            <local:UndoBehavior UndoTrigger="{Binding UndoTrigger, Mode=TwoWay}" />
                         </i:Interaction.Behaviors>
                     </TextBox>
                 </TabItem>

@@ -15,7 +15,7 @@ using Unity.Attributes;
 
 namespace Compiler.Interface.ViewModels
 {
-    public class MainWindowViewModel : BindableBase
+    public class MainWindowViewModel : BaseViewModel
     {
         private bool redoTrigger;
         public bool RedoTrigger
@@ -53,9 +53,7 @@ namespace Compiler.Interface.ViewModels
         }
 
         [Dependency]
-        internal ICompiler compiler { get; set; }
-
-        internal IEventAggregator EventAggregator { get; }
+        internal ICompiler Compiler { get; set; }
 
         public InteractionRequest<Notification> AboutWindowInteractionRequest { get; } = new InteractionRequest<Notification>();
         public InteractionRequest<Notification> OptionsWindowInteractionRequest { get; } = new InteractionRequest<Notification>();
@@ -95,8 +93,6 @@ namespace Compiler.Interface.ViewModels
             CutCommand = new DelegateCommand(CutCommandExecuted);
             CopyCommand = new DelegateCommand(CopyCommandExecuted);
             PasteCommand = new DelegateCommand(PasteCommandExecuted);
-
-            EventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
         }
 
         private void PasteCommandExecuted()
@@ -129,13 +125,11 @@ namespace Compiler.Interface.ViewModels
         private void RedoCommandExecuted()
         {
             RedoTrigger = true;
-            RedoTrigger = false;
         }
 
         private void UndoCommandExecuted()
         {
             UndoTrigger = true;
-            UndoTrigger = false;
         }
 
         private void ExitApplicationCommandExecuted()
@@ -172,11 +166,11 @@ namespace Compiler.Interface.ViewModels
         {
             try
             {
-                compiler.CompileMainProgram("file1");
+                Compiler.CompileMainProgram("file1");
             }
             catch (Exception ex)
             {
-
+                HandleException(ex);
             }
         }
 
@@ -199,7 +193,7 @@ namespace Compiler.Interface.ViewModels
             }
             catch (Exception ex)
             {
-
+                HandleException(ex);
             }
         }
 
@@ -211,7 +205,7 @@ namespace Compiler.Interface.ViewModels
             }
             catch (Exception ex)
             {
-
+                HandleException(ex);
             }
         }
 

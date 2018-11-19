@@ -5,7 +5,7 @@ using System.Windows.Interactivity;
 
 namespace Compiler.Interface
 {
-    public class RedoBehavior : Behavior<TextBox>
+    public class RedoBehavior : BaseBehavior<TextBox>
     {
         public bool RedoTrigger
         {
@@ -17,18 +17,33 @@ namespace Compiler.Interface
             DependencyProperty.Register(nameof(RedoTrigger), typeof(bool), typeof(RedoBehavior),
                 new PropertyMetadata(false, OnRedoTriggerChanged));
 
+        //protected override void OnAttached()
+        //{
+        //    this.AssociatedObject.undo += AssociatedObject_TextChanged; ;
+        //    base.OnAttached();
+        //}
+
+        //protected override void OnDetaching()
+        //{
+        //    this.AssociatedObject.TextChanged -= AssociatedObject_TextChanged;
+        //    base.OnDetaching();
+        //}
+
+        //private void AssociatedObject_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    this.ClearTextTrigger = false;
+        //}
+
         private static void OnRedoTriggerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var behavior = d as RedoBehavior;
+            RedoBehavior behavior = d as RedoBehavior;
 
             if (behavior != null)
-            {
                 behavior.OnRedoTriggerChanged();
-            }
         }
+
         private void OnRedoTriggerChanged()
         {
-            // when closetrigger is true, close the window
             if (this.RedoTrigger)
                 this.AssociatedObject.Redo();
         }

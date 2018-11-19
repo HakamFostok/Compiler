@@ -1,21 +1,12 @@
-﻿using Compiler.Core;
-using Prism.Commands;
-using Prism.Events;
+﻿using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
-using Prism.Mvvm;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Compiler.Interface.ViewModels
 {
-    public class ConsoleWindowViewModel : BindableBase, IInteractionRequestAware
+    public class ConsoleWindowViewModel : BaseViewModel, IInteractionRequestAware
     {
-        private IEventAggregator EventAggregator { get; }
-
         private bool isExecutionEnded;
         public bool IsExecutionEnded
         {
@@ -35,8 +26,7 @@ namespace Compiler.Interface.ViewModels
         public ConsoleWindowViewModel()
         {
             KeyUpEventCommand = new DelegateCommand<KeyEventArgs>(KeyUpEventCommandExecuted);
-
-            EventAggregator = CommonServiceLocator.ServiceLocator.Current.GetInstance<IEventAggregator>();
+           
             EventAggregator.GetEvent<WriteEventPubSub>().Subscribe(e =>
             {
                 Write(e.Line, e.IsLine);
@@ -46,7 +36,7 @@ namespace Compiler.Interface.ViewModels
 
         private void Write(string data, bool isLine)
         {
-            ConsoleResult += data + ((isLine) ? "\n" : "");
+            ConsoleResult += data + (isLine ? "\n" : "");
         }
 
         private void ClearScreen()

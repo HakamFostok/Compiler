@@ -5,12 +5,16 @@ using System.Windows.Interactivity;
 
 namespace Compiler.Interface
 {
-    public class SelectAllTextBehavior : Behavior<TextBox>
+    public class SelectAllTextBehavior : BaseBehavior<TextBox>
     {
         public bool SelectTrigger
         {
             get { return (bool)GetValue(SelectTriggerProperty); }
-            set { SetValue(SelectTriggerProperty, value); }
+            set
+            {
+                SetValue(SelectTriggerProperty, value);
+                RaisePropertyChanged();
+            }
         }
 
         public static readonly DependencyProperty SelectTriggerProperty =
@@ -36,21 +40,16 @@ namespace Compiler.Interface
 
         private static void OnSelectTriggerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var behavior = d as SelectAllTextBehavior;
+            SelectAllTextBehavior behavior = d as SelectAllTextBehavior;
 
             if (behavior != null)
-            {
                 behavior.OnSelectTriggerChanged();
-            }
         }
+
         private void OnSelectTriggerChanged()
         {
-            // when closetrigger is true, close the window
             if (this.SelectTrigger)
-            {
                 this.AssociatedObject.SelectAll();
-                this.SelectTrigger = false;
-            }
         }
     }
 }

@@ -1,21 +1,13 @@
 ﻿using Compiler.Interface.Properties;
 using Prism.Commands;
-using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
-using Prism.Mvvm;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using Unity.Attributes;
 
 namespace Compiler.Interface.ViewModels
 {
-    public class OptionsWindowViewModel : BindableBase, IInteractionRequestAware
+    public class OptionsWindowViewModel : BaseViewModel, IInteractionRequestAware
     {
-     
         private bool reloadFiles;
         public bool ReloadFiles
         {
@@ -40,7 +32,6 @@ namespace Compiler.Interface.ViewModels
 
             ReloadFiles = Settings.Default.ReloadFiles;
             AutoSave = Settings.Default.AutoSave;
-
         }
 
         private void SaveCommandExecuted()
@@ -56,6 +47,7 @@ namespace Compiler.Interface.ViewModels
             }
             catch (Exception ex)
             {
+                HandleException(ex);
             }
         }
 

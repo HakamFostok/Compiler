@@ -1,16 +1,36 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interactivity;
 
 namespace Compiler.Interface
 {
-    public class ClearTextBehavior : Behavior<TextBox>
+    public class ClearTextBehavior : BaseBehavior<TextBox>
     {
         public bool ClearTextTrigger
         {
             get { return (bool)GetValue(ClearTextTriggerProperty); }
-            set { SetValue(ClearTextTriggerProperty, value); }
+            set
+            {
+                SetValue(ClearTextTriggerProperty, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        protected override void OnAttached()
+        {
+            this.AssociatedObject.TextChanged += AssociatedObject_TextChanged; ;
+            base.OnAttached();
+        }
+    
+        protected override void OnDetaching()
+        {
+            this.AssociatedObject.TextChanged -= AssociatedObject_TextChanged;
+            base.OnDetaching();
+        }
+
+        private void AssociatedObject_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.ClearTextTrigger = false;
         }
 
         public static readonly DependencyProperty ClearTextTriggerProperty =
@@ -19,21 +39,16 @@ namespace Compiler.Interface
 
         private static void OnClearTextTriggerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var behavior = d as ClearTextBehavior;
+            ClearTextBehavior behavior = d as ClearTextBehavior;
 
             if (behavior != null)
-            {
                 behavior.OnClearTextTriggerChanged();
-            }
         }
+
         private void OnClearTextTriggerChanged()
         {
-            // when closetrigger is true, close the window
             if (this.ClearTextTrigger)
-            {
                 this.AssociatedObject.Clear();
-                this.ClearTextTrigger = false;
-            }
         }
     }
 }

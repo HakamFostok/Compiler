@@ -103,11 +103,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AggregatorEvents\WriteEventPubSub.cs" />
+    <Compile Include="Behaviors\BaseBehavior.cs" />
     <Compile Include="Behaviors\UndoTextBehavior.cs" />
     <Compile Include="Behaviors\RedoTextBehavior.cs" />
     <Compile Include="Behaviors\DeselectAllTextBehavior.cs" />
     <Compile Include="Behaviors\ClearTextBehavior.cs" />
     <Compile Include="CompilerStatus.cs" />
+    <Compile Include="Core\DelegateCommandAsync.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ConsoleWindowViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\OptionsWindowViewModel.cs" />

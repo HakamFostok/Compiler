@@ -4,12 +4,16 @@ using System.Windows.Interactivity;
 
 namespace Compiler.Interface
 {
-    public class DeselectAllTextBehavior : Behavior<TextBox>
+    public class DeselectAllTextBehavior : BaseBehavior<TextBox>
     {
         public bool DeselectTrigger
         {
             get { return (bool)GetValue(DeselectTriggerProperty); }
-            set { SetValue(DeselectTriggerProperty, value); }
+            set
+            {
+                SetValue(DeselectTriggerProperty, value);
+                RaisePropertyChanged();
+            }
         }
 
         public static readonly DependencyProperty DeselectTriggerProperty =
@@ -38,19 +42,13 @@ namespace Compiler.Interface
             var behavior = d as DeselectAllTextBehavior;
 
             if (behavior != null)
-            {
                 behavior.OnDeselectTriggerChanged();
-            }
         }
 
         private void OnDeselectTriggerChanged()
         {
-            // when closetrigger is true, close the window
             if (this.DeselectTrigger)
-            {
                 this.AssociatedObject.Select(0, 0);
-                this.DeselectTrigger = false;
-            }
         }
     }
 }
