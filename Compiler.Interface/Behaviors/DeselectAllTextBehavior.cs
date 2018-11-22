@@ -16,9 +16,7 @@ namespace Compiler.Interface
             }
         }
 
-        public static readonly DependencyProperty DeselectTriggerProperty =
-            DependencyProperty.Register(nameof(DeselectTrigger), typeof(bool), typeof(DeselectAllTextBehavior),
-                new PropertyMetadata(false, OnDeselectTriggerChanged));
+        public static readonly DependencyProperty DeselectTriggerProperty = DependencyProperty.Register(nameof(DeselectTrigger), typeof(bool), typeof(DeselectAllTextBehavior), new PropertyMetadata(false, OnDeselectTriggerChanged));
 
         protected override void OnAttached()
         {

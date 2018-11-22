@@ -104,6 +104,9 @@
     </ApplicationDefinition>
     <Compile Include="AggregatorEvents\WriteEventPubSub.cs" />
     <Compile Include="Behaviors\BaseBehavior.cs" />
+    <Compile Include="Behaviors\CopyBehavior.cs" />
+    <Compile Include="Behaviors\CutBehavior.cs" />
+    <Compile Include="Behaviors\PasteBehavior.cs" />
     <Compile Include="Behaviors\UndoTextBehavior.cs" />
     <Compile Include="Behaviors\RedoTextBehavior.cs" />
     <Compile Include="Behaviors\DeselectAllTextBehavior.cs" />

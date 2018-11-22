@@ -100,6 +100,10 @@
                             <local:ClearTextBehavior ClearTextTrigger="{Binding ClearTextTrigger, Mode=TwoWay}" />
                             <local:RedoBehavior RedoTrigger="{Binding RedoTrigger, Mode=TwoWay}" />
                             <local:UndoBehavior UndoTrigger="{Binding UndoTrigger, Mode=TwoWay}" />
+
+                            <local:CutBehavior CutTrigger="{Binding CutTrigger, Mode=TwoWay}" />
+                            <local:CopyBehavior CopyTrigger="{Binding CopyTrigger, Mode=TwoWay}" />
+                            <local:PasteBehavior PasteTrigger="{Binding PasteTrigger, Mode=TwoWay}" />
                         </i:Interaction.Behaviors>
                     </TextBox>
                 </TabItem>

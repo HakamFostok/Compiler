@@ -17,6 +17,27 @@ namespace Compiler.Interface.ViewModels
 {
     public class MainWindowViewModel : BaseViewModel
     {
+        private bool cutTrigger;
+        public bool CutTrigger
+        {
+            get => cutTrigger;
+            set => SetProperty(ref cutTrigger, value);
+        }
+
+        private bool copyTrigger;
+        public bool CopyTrigger
+        {
+            get => copyTrigger;
+            set => SetProperty(ref copyTrigger, value);
+        }
+
+        private bool pasteTrigger;
+        public bool PasteTrigger
+        {
+            get => pasteTrigger;
+            set => SetProperty(ref pasteTrigger, value);
+        }
+
         private bool redoTrigger;
         public bool RedoTrigger
         {
@@ -97,14 +118,20 @@ namespace Compiler.Interface.ViewModels
 
         private void PasteCommandExecuted()
         {
+            PasteTrigger = true;
+            PasteTrigger = false;
         }
 
         private void CopyCommandExecuted()
         {
+            CopyTrigger = true;
+            CopyTrigger = false;
         }
 
         private void CutCommandExecuted()
         {
+            CutTrigger = true;
+            CutTrigger = false;
         }
 
         private void ClearCommandExecuted()
@@ -125,11 +152,13 @@ namespace Compiler.Interface.ViewModels
         private void RedoCommandExecuted()
         {
             RedoTrigger = true;
+            RedoTrigger = false;
         }
 
         private void UndoCommandExecuted()
         {
             UndoTrigger = true;
+            UndoTrigger = false;
         }
 
         private void ExitApplicationCommandExecuted()

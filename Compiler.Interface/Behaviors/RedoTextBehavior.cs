@@ -1,38 +1,23 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interactivity;
 
 namespace Compiler.Interface
 {
+
     public class RedoBehavior : BaseBehavior<TextBox>
     {
         public bool RedoTrigger
         {
             get { return (bool)GetValue(RedoTriggerProperty); }
-            set { SetValue(RedoTriggerProperty, value); }
+            set
+            {
+                SetValue(RedoTriggerProperty, value);
+                RaisePropertyChanged();
+            }
         }
 
-        public static readonly DependencyProperty RedoTriggerProperty =
-            DependencyProperty.Register(nameof(RedoTrigger), typeof(bool), typeof(RedoBehavior),
-                new PropertyMetadata(false, OnRedoTriggerChanged));
-
-        //protected override void OnAttached()
-        //{
-        //    this.AssociatedObject.undo += AssociatedObject_TextChanged; ;
-        //    base.OnAttached();
-        //}
-
-        //protected override void OnDetaching()
-        //{
-        //    this.AssociatedObject.TextChanged -= AssociatedObject_TextChanged;
-        //    base.OnDetaching();
-        //}
-
-        //private void AssociatedObject_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    this.ClearTextTrigger = false;
-        //}
+        public static readonly DependencyProperty RedoTriggerProperty = DependencyProperty.Register(nameof(RedoTrigger), typeof(bool), typeof(RedoBehavior), new PropertyMetadata(false, OnRedoTriggerChanged));
 
         private static void OnRedoTriggerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

@@ -17,9 +17,7 @@ namespace Compiler.Interface
             }
         }
 
-        public static readonly DependencyProperty SelectTriggerProperty =
-            DependencyProperty.Register(nameof(SelectTrigger), typeof(bool), typeof(SelectAllTextBehavior),
-                new PropertyMetadata(false, OnSelectTriggerChanged));
+        public static readonly DependencyProperty SelectTriggerProperty = DependencyProperty.Register(nameof(SelectTrigger), typeof(bool), typeof(SelectAllTextBehavior), new PropertyMetadata(false, OnSelectTriggerChanged));
 
         protected override void OnAttached()
         {

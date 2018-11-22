@@ -16,12 +16,14 @@ namespace Compiler.Interface
             }
         }
 
+        public static readonly DependencyProperty ClearTextTriggerProperty = DependencyProperty.Register(nameof(ClearTextTrigger), typeof(bool), typeof(ClearTextBehavior), new PropertyMetadata(false, OnClearTextTriggerChanged));
+
         protected override void OnAttached()
         {
             this.AssociatedObject.TextChanged += AssociatedObject_TextChanged; ;
             base.OnAttached();
         }
-    
+
         protected override void OnDetaching()
         {
             this.AssociatedObject.TextChanged -= AssociatedObject_TextChanged;
@@ -32,10 +34,6 @@ namespace Compiler.Interface
         {
             this.ClearTextTrigger = false;
         }
-
-        public static readonly DependencyProperty ClearTextTriggerProperty =
-            DependencyProperty.Register(nameof(ClearTextTrigger), typeof(bool), typeof(ClearTextBehavior),
-                new PropertyMetadata(false, OnClearTextTriggerChanged));
 
         private static void OnClearTextTriggerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
