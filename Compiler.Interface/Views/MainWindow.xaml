@@ -12,6 +12,34 @@
         mc:Ignorable="d"
         WindowState="Maximized"
         Title="Compiler" Height="450" Width="800">
+    <Window.Resources>
+        <local:BooleanVisibleConverter x:Key="converter" />
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="N" Modifiers="Control" Command="{Binding NewFileCommand}"/>
+        <KeyBinding Key="O" Modifiers="Control" Command="{Binding OpenFileCommand}"/>
+        <KeyBinding Key="F4" Modifiers="Control" Command="{Binding CloseFileCommand}"/>
+  
+        <KeyBinding Key="S" Modifiers="Control" Command="{Binding SaveFileCommand}"/>
+        <KeyBinding Key="S" Modifiers="Control+Shift" Command="{Binding SaveAllFilesCommand}"/>
+
+        <KeyBinding Key="P" Modifiers="Control" Command="{Binding PrintFileCommand}"/>
+        <KeyBinding Key="F4" Modifiers="Alt" Command="{Binding ExitApplicationCommand}"/>
+
+        <KeyBinding Key="Z" Modifiers="Control" Command="{Binding UndoCommand}"/>
+        <KeyBinding Key="Y" Modifiers="Control" Command="{Binding RedoCommand}"/>
+
+        <KeyBinding Key="C" Modifiers="Control" Command="{Binding CopyCommand}"/>
+        <KeyBinding Key="X" Modifiers="Control" Command="{Binding CutCommand}"/>
+        <KeyBinding Key="V" Modifiers="Control" Command="{Binding PasteCommand}"/>
+
+        <KeyBinding Key="A" Modifiers="Control" Command="{Binding SelectAllCommand}"/>
+        <KeyBinding Key="D" Modifiers="Control" Command="{Binding DeselectCommand}"/>
+
+        <KeyBinding Key="F6" Command="{Binding BuildCommand}"/>
+        <KeyBinding Key="F5" Command="{Binding ExecuteCommand}"/>
+    </Window.InputBindings>
+
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding ConsoleWindowInteractionRequest, Mode=OneWay}" >
             <prism:PopupWindowAction WindowStartupLocation="CenterScreen" IsModal="True">
@@ -31,30 +59,30 @@
             <TextBox Style="{StaticResource ErrorMessageStyle}" Text="{Binding ErrorMessage}" />
             <Menu Height="Auto" >
                 <MenuItem Header="_File">
-                    <MenuItem Header="_New" Command="{Binding NewFileCommand}"/>
-                    <MenuItem Header="_Open" Command="{Binding OpenFileCommand}"/>
-                    <MenuItem Header="_Close" Command="{Binding CloseFileCommand}"/>
+                    <MenuItem Header="_New" Command="{Binding NewFileCommand}" InputGestureText="Ctrl + N"/>
+                    <MenuItem Header="_Open" Command="{Binding OpenFileCommand}" InputGestureText="Ctrl + O"/>
+                    <MenuItem Header="_Close" Command="{Binding CloseFileCommand}" InputGestureText="Alt + F4"/>
                     <MenuItem Header="_Close All" Command="{Binding CloseAllFilesCommand}"/>
                     <Separator />
-                    <MenuItem Header="_Save"/>
-                    <MenuItem Header="_Save All"/>
-                    <MenuItem Header="_Save As"/>
+                    <MenuItem Header="_Save" Command="{Binding SaveFileCommand}" InputGestureText="Ctrl + S"/>
+                    <MenuItem Header="_Save All" Command="{Binding SaveAllFilesCommand}" InputGestureText="Ctrl + Shift + S"/>
+                    <MenuItem Header="_Save As" Command="{Binding SaveAsCommand}"/>
                     <Separator />
-                    <MenuItem Header="_Print" Command="{Binding PrintFileCommand}"/>
+                    <MenuItem Header="_Print" Command="{Binding PrintFileCommand}" InputGestureText="Ctrl + P"/>
                     <Separator />
-                    <MenuItem Header="_Exit" Command="{Binding ExitApplicationCommand}"/>
+                    <MenuItem Header="_Exit" Command="{Binding ExitApplicationCommand}" InputGestureText="Alt + F4"/>
                 </MenuItem>
 
                 <MenuItem Header="_Edit">
-                    <MenuItem Header="_Undo" Command="{Binding UndoCommand}"/>
-                    <MenuItem Header="_Redo" Command="{Binding RedoCommand}"/>
-                    <MenuItem Header="_Select All" Command="{Binding SelectAllCommand}"/>
-                    <MenuItem Header="_Deselect All" Command="{Binding DeselectCommand}"/>
+                    <MenuItem Header="_Undo" Command="{Binding UndoCommand}" InputGestureText="Ctrl + Z"/>
+                    <MenuItem Header="_Redo" Command="{Binding RedoCommand}" InputGestureText="Ctrl + Y"/>
+                    <MenuItem Header="_Select All" Command="{Binding SelectAllCommand}" InputGestureText="Ctrl + A"/>
+                    <MenuItem Header="_Deselect All" Command="{Binding DeselectCommand}" InputGestureText="Ctrl + D"/>
                     <MenuItem Header="_Clear" Command="{Binding ClearCommand}"/>
                     <Separator />
-                    <MenuItem Header="_Cut" Command="{Binding CutCommand}"/>
-                    <MenuItem Header="_Copy" Command="{Binding CopyCommand}"/>
-                    <MenuItem Header="_Paste" Command="{Binding PasteCommand}"/>
+                    <MenuItem Header="_Cut" Command="{Binding CutCommand}" InputGestureText="Ctrl + X"/>
+                    <MenuItem Header="_Copy" Command="{Binding CopyCommand}" InputGestureText="Ctrl + C"/>
+                    <MenuItem Header="_Paste" Command="{Binding PasteCommand}" InputGestureText="Ctrl + V"/>
                     <Separator />
                     <MenuItem Header="Options" Command="{Binding OptionsCommand}">
                         <i:Interaction.Triggers>
@@ -70,8 +98,8 @@
                 </MenuItem>
 
                 <MenuItem Header="_Debug">
-                    <MenuItem Header="_Build" Command="{Binding BuildCommand}"/>
-                    <MenuItem Header="_Execute" Command="{Binding ExecuteCommand}"/>
+                    <MenuItem Header="_Build" Command="{Binding BuildCommand}" InputGestureText="F6"/>
+                    <MenuItem Header="_Execute" Command="{Binding ExecuteCommand}" InputGestureText="F5"/>
                     <MenuItem Header="_Execute From Object File" Command="{Binding ExecuteFromObjFileCommand}"/>
                 </MenuItem>
 
@@ -98,7 +126,10 @@
             <TabControl Margin="5" Grid.Row="0" ItemsSource="{Binding Files}" SelectedItem="{Binding SelectedFile}">
                 <TabControl.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding FileName}" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding FileName}" />
+                            <TextBlock Margin="5,0,0,0" Text="*" Visibility="{Binding IsSaved, Converter={StaticResource converter}}"/>
+                        </StackPanel>
                     </DataTemplate>
                 </TabControl.ItemTemplate>
                 <TabControl.ContentTemplate>
@@ -122,7 +153,7 @@
             <TabControl Margin="5" Grid.Row="1">
                 <TabItem Header="Errors">
                     <views:ErrorPanelView/>
-                </TabItem>    
+                </TabItem>
             </TabControl>
         </Grid>
         <StatusBar Grid.Row="2">

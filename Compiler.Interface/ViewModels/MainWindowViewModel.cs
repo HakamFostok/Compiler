@@ -1,17 +1,15 @@
-﻿using CommonServiceLocator;
-using Compiler.Core;
+﻿using Compiler.Core;
+using Compiler.Interface.Properties;
 using Prism.Commands;
-using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using Unity.Attributes;
 
@@ -19,7 +17,17 @@ namespace Compiler.Interface.ViewModels
 {
     public class AubFile : BindableBase
     {
-        public string FileName => Path.GetFileName(FilePath);
+        public string FileName
+        {
+            get
+            {
+                try { return Path.GetFileName(FilePath).Split('.')[0]; }
+                catch (Exception)
+                {
+                    return "";
+                }
+            }
+        }
 
         private string filePath;
         public string FilePath
@@ -36,7 +44,11 @@ namespace Compiler.Interface.ViewModels
         public string Content
         {
             get => content;
-            set => SetProperty(ref content, value);
+            set
+            {
+                SetProperty(ref content, value);
+                IsSaved = false;
+            }
         }
 
         private bool cutTrigger;
@@ -95,10 +107,34 @@ namespace Compiler.Interface.ViewModels
             set => SetProperty(ref deselectTrigger, value);
         }
 
-        public AubFile(string path)
+        private bool isSaved;
+        public bool IsSaved
+        {
+            get => isSaved;
+            private set => SetProperty(ref isSaved, value);
+        }
+
+        private AubFile(string path, string content)
         {
             this.FilePath = path;
-            this.Content = string.Empty;
+            this.Content = content;
+            this.IsSaved = true;
+        }
+
+        public static AubFile OpenAubFile(string path)
+        {
+            return new AubFile(path, File.ReadAllText(path));
+        }
+
+        public static AubFile NewAubFile(string path)
+        {
+            return new AubFile(path, "");
+        }
+
+        public void Save()
+        {
+            File.WriteAllText(FilePath, Content);
+            IsSaved = true;
         }
     }
 
@@ -166,9 +202,9 @@ namespace Compiler.Interface.ViewModels
             OpenFileCommand = new DelegateCommand(OpenFileCommandExecuted);
             CloseFileCommand = new DelegateCommand(CloseFileCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
             CloseAllFilesCommand = new DelegateCommand(CloseAllFilesCommandExecuted);
-            SaveFileCommand = new DelegateCommand(SaveFileCommandExecuted);
-            SaveAllFilesCommand = new DelegateCommand(SaveAllFilesCommandExecuted);
-            SaveAsCommand = new DelegateCommand(SaveAsCommandExecuted);
+            SaveFileCommand = new DelegateCommand(SaveFileCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
+            SaveAllFilesCommand = new DelegateCommand(SaveAllFilesCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
+            SaveAsCommand = new DelegateCommand(SaveAsCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
             PrintFileCommand = new DelegateCommand(PrintFileCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
         }
 
@@ -182,7 +218,10 @@ namespace Compiler.Interface.ViewModels
                 if (string.IsNullOrEmpty(filePath))
                     return;
 
-                AubFile newFile = new AubFile(filePath);
+                using (File.Create(filePath))
+                { }
+
+                AubFile newFile = AubFile.NewAubFile(filePath);
                 Files.Add(newFile);
                 SelectedFile = newFile;
             }
@@ -200,8 +239,7 @@ namespace Compiler.Interface.ViewModels
                 if (string.IsNullOrEmpty(filePath))
                     return;
 
-                AubFile newFile = new AubFile(filePath);
-                newFile.Content = File.ReadAllText(filePath);
+                AubFile newFile = AubFile.OpenAubFile(filePath);
                 Files.Add(newFile);
                 SelectedFile = newFile;
             }
@@ -218,7 +256,9 @@ namespace Compiler.Interface.ViewModels
 
             try
             {
-                Files.Remove(SelectedFile);
+                MessageBoxResult result = CloseFileIfUserConfirm(SelectedFile);
+                if (result != MessageBoxResult.Cancel)
+                    Files.Remove(SelectedFile);
             }
             catch (Exception ex)
             {
@@ -230,7 +270,12 @@ namespace Compiler.Interface.ViewModels
         {
             try
             {
-                Files.Clear();
+                foreach (AubFile item in Files)
+                {
+                    MessageBoxResult result = CloseFileIfUserConfirm(item);
+                    if (result != MessageBoxResult.Cancel)
+                        Files.Remove(item);
+                }
             }
             catch (Exception ex)
             {
@@ -238,19 +283,73 @@ namespace Compiler.Interface.ViewModels
             }
         }
 
+        private MessageBoxResult CloseFileIfUserConfirm(AubFile file)
+        {
+            if (file.IsSaved)
+                return MessageBoxResult.Yes;
+
+            if (Settings.Default.AutoSave)
+            {
+                file.Save();
+                return MessageBoxResult.Yes;
+            }
+
+            MessageBoxResult result = DialogService.ShowConfirmation($"Save file {file.FileName} ?");
+            if (result == MessageBoxResult.Yes)
+                file.Save();
+
+            return result;
+        }
+
         private void SaveFileCommandExecuted()
         {
-            throw new NotImplementedException();
+            if (SelectedFile == null)
+                return;
+
+            try
+            {
+                SelectedFile.Save();
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex);
+            }
         }
 
         private void SaveAllFilesCommandExecuted()
         {
-            throw new NotImplementedException();
+            if (SelectedFile == null)
+                return;
+
+            try
+            {
+                foreach (AubFile file in Files)
+                    file.Save();
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex);
+            }
         }
 
         private void SaveAsCommandExecuted()
         {
-            throw new NotImplementedException();
+            if (SelectedFile == null)
+                return;
+
+            try
+            {
+                string filePath = DialogService.SaveFileDialog();
+                if (string.IsNullOrEmpty(filePath))
+                    return;
+
+                using (File.Create(filePath))
+                { }
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex);
+            }
         }
 
         private void PrintFileCommandExecuted()

@@ -112,6 +112,7 @@
     <Compile Include="Behaviors\DeselectAllTextBehavior.cs" />
     <Compile Include="Behaviors\ClearTextBehavior.cs" />
     <Compile Include="CompilerStatus.cs" />
+    <Compile Include="Core\BooleanVisibleConverter.cs" />
     <Compile Include="Core\DelegateCommandAsync.cs" />
     <Compile Include="Core\FileDialogs.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />

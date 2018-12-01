@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Windows;
 using Microsoft.Win32;
 
 namespace Compiler.Interface
 {
     public interface IFileDialogsService
     {
+        MessageBoxResult ShowConfirmation(string content);
+
         string OpenFileDialog();
 
         string SaveFileDialog();
@@ -14,6 +17,11 @@ namespace Compiler.Interface
 
     public class FileDialogsService : IFileDialogsService
     {
+        public MessageBoxResult ShowConfirmation(string content)
+        {
+            return MessageBox.Show(content, "Confirmation", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+        }
+
         public string OpenFileDialog()
         {
             OpenFileDialog dialog = new OpenFileDialog();
