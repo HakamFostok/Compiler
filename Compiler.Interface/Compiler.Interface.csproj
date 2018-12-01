@@ -113,11 +113,16 @@
     <Compile Include="Behaviors\ClearTextBehavior.cs" />
     <Compile Include="CompilerStatus.cs" />
     <Compile Include="Core\DelegateCommandAsync.cs" />
+    <Compile Include="Core\FileDialogs.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ConsoleWindowViewModel.cs" />
+    <Compile Include="ViewModels\ErrorPanelViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\OptionsWindowViewModel.cs" />
     <Compile Include="Behaviors\SelectAllTextBehavior.cs" />
+    <Compile Include="Views\ErrorPanelView.xaml.cs">
+      <DependentUpon>ErrorPanelView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\OptionsWindow.xaml.cs">
       <DependentUpon>OptionsWindow.xaml</DependentUpon>
     </Compile>
@@ -130,6 +135,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ConsoleWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ErrorPanelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

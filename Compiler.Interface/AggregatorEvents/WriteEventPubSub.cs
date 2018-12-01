@@ -11,4 +11,12 @@ namespace Compiler.Interface
     public class WriteEventPubSub : PubSubEvent<WriteEventArgs>
     {
     }
+
+    public class CompileFailEventPubSub : PubSubEvent<ShowErrorEventArgs>
+    { }
+
+    public class CompileSuccessEventPubSub : PubSubEvent
+    {
+
+    }
 }

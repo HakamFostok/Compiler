@@ -16,6 +16,9 @@ namespace Compiler.Interface.ViewModels
         }
 
         [Dependency]
+        protected IFileDialogsService DialogService { get; set; }
+
+        [Dependency]
         protected ILogger Logger { get; set; }
 
         protected IEventAggregator EventAggregator { get; }

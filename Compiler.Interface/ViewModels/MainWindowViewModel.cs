@@ -6,6 +6,8 @@ using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,8 +17,28 @@ using Unity.Attributes;
 
 namespace Compiler.Interface.ViewModels
 {
-    public class MainWindowViewModel : BaseViewModel
+    public class AubFile : BindableBase
     {
+        public string FileName => Path.GetFileName(FilePath);
+
+        private string filePath;
+        public string FilePath
+        {
+            get => filePath;
+            set
+            {
+                SetProperty(ref filePath, value);
+                RaisePropertyChanged(nameof(FileName));
+            }
+        }
+
+        private string content;
+        public string Content
+        {
+            get => content;
+            set => SetProperty(ref content, value);
+        }
+
         private bool cutTrigger;
         public bool CutTrigger
         {
@@ -73,6 +95,29 @@ namespace Compiler.Interface.ViewModels
             set => SetProperty(ref deselectTrigger, value);
         }
 
+        public AubFile(string path)
+        {
+            this.FilePath = path;
+            this.Content = string.Empty;
+        }
+    }
+
+    public class MainWindowViewModel : BaseViewModel
+    {
+        private ObservableCollection<AubFile> files;
+        public ObservableCollection<AubFile> Files
+        {
+            get => files;
+            set => SetProperty(ref files, value);
+        }
+
+        private AubFile selectedFile;
+        public AubFile SelectedFile
+        {
+            get => selectedFile;
+            set => SetProperty(ref selectedFile, value);
+        }
+
         [Dependency]
         internal ICompiler Compiler { get; set; }
 
@@ -98,67 +143,198 @@ namespace Compiler.Interface.ViewModels
         public MainWindowViewModel()
         {
             Status = CompilerStatus.Ready;
+            Files = new ObservableCollection<AubFile>();
 
-            BuildCommand = new DelegateCommand(BuildCommandExecuted);
-            ExecuteCommand = new DelegateCommand(ExecuteCommandExecuted);
+            BuildCommand = new DelegateCommand(BuildCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
+            ExecuteCommand = new DelegateCommand(ExecuteCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
             ExecuteFromObjFileCommand = new DelegateCommand(ExecuteFromObjFileCommandExecuted);
+
             AboutCommand = new DelegateCommand(AboutCommandExecuted);
             OptionsCommand = new DelegateCommand(OptionsCommandExecuted);
             ExitApplicationCommand = new DelegateCommand(ExitApplicationCommandExecuted);
 
-            UndoCommand = new DelegateCommand(UndoCommandExecuted);
-            RedoCommand = new DelegateCommand(RedoCommandExecuted);
-            SelectAllCommand = new DelegateCommand(SelectAllCommandExecuted);
-            DeselectCommand = new DelegateCommand(DeselectCommandExecuted);
-            ClearCommand = new DelegateCommand(ClearCommandExecuted);
-            CutCommand = new DelegateCommand(CutCommandExecuted);
-            CopyCommand = new DelegateCommand(CopyCommandExecuted);
-            PasteCommand = new DelegateCommand(PasteCommandExecuted);
+            UndoCommand = new DelegateCommand(UndoCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
+            RedoCommand = new DelegateCommand(RedoCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
+            SelectAllCommand = new DelegateCommand(SelectAllCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
+            DeselectCommand = new DelegateCommand(DeselectCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
+            ClearCommand = new DelegateCommand(ClearCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
+            CutCommand = new DelegateCommand(CutCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
+            CopyCommand = new DelegateCommand(CopyCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
+            PasteCommand = new DelegateCommand(PasteCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
+
+            NewFileCommand = new DelegateCommand(NewFileCommandExecuted);
+            OpenFileCommand = new DelegateCommand(OpenFileCommandExecuted);
+            CloseFileCommand = new DelegateCommand(CloseFileCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
+            CloseAllFilesCommand = new DelegateCommand(CloseAllFilesCommandExecuted);
+            SaveFileCommand = new DelegateCommand(SaveFileCommandExecuted);
+            SaveAllFilesCommand = new DelegateCommand(SaveAllFilesCommandExecuted);
+            SaveAsCommand = new DelegateCommand(SaveAsCommandExecuted);
+            PrintFileCommand = new DelegateCommand(PrintFileCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
+        }
+
+        private bool IsSelectedFile() => SelectedFile != null;
+
+        private void NewFileCommandExecuted()
+        {
+            try
+            {
+                string filePath = DialogService.SaveFileDialog();
+                if (string.IsNullOrEmpty(filePath))
+                    return;
+
+                AubFile newFile = new AubFile(filePath);
+                Files.Add(newFile);
+                SelectedFile = newFile;
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex);
+            }
+        }
+
+        private void OpenFileCommandExecuted()
+        {
+            try
+            {
+                string filePath = DialogService.OpenFileDialog();
+                if (string.IsNullOrEmpty(filePath))
+                    return;
+
+                AubFile newFile = new AubFile(filePath);
+                newFile.Content = File.ReadAllText(filePath);
+                Files.Add(newFile);
+                SelectedFile = newFile;
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex);
+            }
+        }
+
+        private void CloseFileCommandExecuted()
+        {
+            if (SelectedFile == null)
+                return;
+
+            try
+            {
+                Files.Remove(SelectedFile);
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex);
+            }
+        }
+
+        private void CloseAllFilesCommandExecuted()
+        {
+            try
+            {
+                Files.Clear();
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex);
+            }
+        }
+
+        private void SaveFileCommandExecuted()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SaveAllFilesCommandExecuted()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SaveAsCommandExecuted()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PrintFileCommandExecuted()
+        {
+            if (SelectedFile == null)
+                return;
+
+            try
+            {
+                DialogService.PrintFileDialog();
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex);
+            }
         }
 
         private void PasteCommandExecuted()
         {
-            PasteTrigger = true;
-            PasteTrigger = false;
+            if (SelectedFile == null)
+                return;
+
+            SelectedFile.PasteTrigger = true;
+            SelectedFile.PasteTrigger = false;
         }
 
         private void CopyCommandExecuted()
         {
-            CopyTrigger = true;
-            CopyTrigger = false;
+            if (SelectedFile == null)
+                return;
+
+            SelectedFile.CopyTrigger = true;
+            SelectedFile.CopyTrigger = false;
         }
 
         private void CutCommandExecuted()
         {
-            CutTrigger = true;
-            CutTrigger = false;
+            if (SelectedFile == null)
+                return;
+
+            SelectedFile.CutTrigger = true;
+            SelectedFile.CutTrigger = false;
         }
 
         private void ClearCommandExecuted()
         {
-            ClearTextTrigger = true;
+            if (SelectedFile == null)
+                return;
+
+            SelectedFile.ClearTextTrigger = true;
         }
 
         private void DeselectCommandExecuted()
         {
-            DeselectTrigger = true;
+            if (SelectedFile == null)
+                return;
+
+            SelectedFile.DeselectTrigger = true;
         }
 
         private void SelectAllCommandExecuted()
         {
-            SelectTrigger = true;
+            if (SelectedFile == null)
+                return;
+
+            SelectedFile.SelectTrigger = true;
         }
 
         private void RedoCommandExecuted()
         {
-            RedoTrigger = true;
-            RedoTrigger = false;
+            if (SelectedFile == null)
+                return;
+
+            SelectedFile.RedoTrigger = true;
+            SelectedFile.RedoTrigger = false;
         }
 
         private void UndoCommandExecuted()
         {
-            UndoTrigger = true;
-            UndoTrigger = false;
+            if (SelectedFile == null)
+                return;
+
+            SelectedFile.UndoTrigger = true;
+            SelectedFile.UndoTrigger = false;
         }
 
         private void ExitApplicationCommandExecuted()
@@ -168,12 +344,16 @@ namespace Compiler.Interface.ViewModels
 
         #endregion
 
-        private string file;
-        public string File
-        {
-            get => file;
-            set => SetProperty(ref file, value);
-        }
+        public ICommand NewFileCommand { get; }
+        public ICommand OpenFileCommand { get; }
+        public ICommand CloseFileCommand { get; }
+        public ICommand CloseAllFilesCommand { get; }
+
+        public ICommand SaveFileCommand { get; }
+        public ICommand SaveAllFilesCommand { get; }
+        public ICommand SaveAsCommand { get; }
+
+        public ICommand PrintFileCommand { get; }
 
         public ICommand BuildCommand { get; }
         public ICommand ExecuteCommand { get; }
@@ -181,7 +361,6 @@ namespace Compiler.Interface.ViewModels
         public ICommand AboutCommand { get; }
         public ICommand OptionsCommand { get; }
         public ICommand ExitApplicationCommand { get; }
-
         public ICommand UndoCommand { get; }
         public ICommand RedoCommand { get; }
         public ICommand SelectAllCommand { get; }

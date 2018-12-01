@@ -1,15 +1,9 @@
 ﻿using Compiler.Core;
-using Compiler.Interface.Properties;
 using NLog;
 using Prism.Events;
 using Prism.Ioc;
 using Prism.Unity;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Compiler.Interface
@@ -29,6 +23,7 @@ namespace Compiler.Interface
             containerRegistry.RegisterInstance<ICompiler>(new AubCompiler());
             containerRegistry.RegisterInstance<IEventAggregator>(new EventAggregator());
             containerRegistry.RegisterInstance<ILogger>(LogManager.GetCurrentClassLogger());
+            containerRegistry.RegisterInstance<IFileDialogsService>(new FileDialogsService());
         }
     }
 }
