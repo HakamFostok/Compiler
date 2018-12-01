@@ -1,4 +1,5 @@
 ﻿using Compiler.Core;
+using Compiler.Interface.ViewModels;
 using Prism.Events;
 using System;
 using System.Collections.Generic;
@@ -8,15 +9,11 @@ using System.Threading.Tasks;
 
 namespace Compiler.Interface
 {
-    public class WriteEventPubSub : PubSubEvent<WriteEventArgs>
-    {
-    }
+    public class CloseFilePubSub : PubSubEvent<AubFile> { }
 
-    public class CompileFailEventPubSub : PubSubEvent<ShowErrorEventArgs>
-    { }
+    public class WriteEventPubSub : PubSubEvent<WriteEventArgs> { }
 
-    public class CompileSuccessEventPubSub : PubSubEvent
-    {
+    public class CompileFailEventPubSub : PubSubEvent<ShowErrorEventArgs> { }
 
-    }
+    public class CompileSuccessEventPubSub : PubSubEvent { }
 }

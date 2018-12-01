@@ -2,7 +2,6 @@
 using Compiler.Interface.Properties;
 using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
-using Prism.Mvvm;
 using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -15,129 +14,6 @@ using Unity.Attributes;
 
 namespace Compiler.Interface.ViewModels
 {
-    public class AubFile : BindableBase
-    {
-        public string FileName
-        {
-            get
-            {
-                try { return Path.GetFileName(FilePath).Split('.')[0]; }
-                catch (Exception)
-                {
-                    return "";
-                }
-            }
-        }
-
-        private string filePath;
-        public string FilePath
-        {
-            get => filePath;
-            set
-            {
-                SetProperty(ref filePath, value);
-                RaisePropertyChanged(nameof(FileName));
-            }
-        }
-
-        private string content;
-        public string Content
-        {
-            get => content;
-            set
-            {
-                SetProperty(ref content, value);
-                IsSaved = false;
-            }
-        }
-
-        private bool cutTrigger;
-        public bool CutTrigger
-        {
-            get => cutTrigger;
-            set => SetProperty(ref cutTrigger, value);
-        }
-
-        private bool copyTrigger;
-        public bool CopyTrigger
-        {
-            get => copyTrigger;
-            set => SetProperty(ref copyTrigger, value);
-        }
-
-        private bool pasteTrigger;
-        public bool PasteTrigger
-        {
-            get => pasteTrigger;
-            set => SetProperty(ref pasteTrigger, value);
-        }
-
-        private bool redoTrigger;
-        public bool RedoTrigger
-        {
-            get => redoTrigger;
-            set => SetProperty(ref redoTrigger, value);
-        }
-
-        private bool undoTrigger;
-        public bool UndoTrigger
-        {
-            get => undoTrigger;
-            set => SetProperty(ref undoTrigger, value);
-        }
-
-        private bool clearTextTrigger;
-        public bool ClearTextTrigger
-        {
-            get => clearTextTrigger;
-            set => SetProperty(ref clearTextTrigger, value);
-        }
-
-        private bool selectTrigger;
-        public bool SelectTrigger
-        {
-            get => selectTrigger;
-            set => SetProperty(ref selectTrigger, value);
-        }
-
-        private bool deselectTrigger;
-        public bool DeselectTrigger
-        {
-            get => deselectTrigger;
-            set => SetProperty(ref deselectTrigger, value);
-        }
-
-        private bool isSaved;
-        public bool IsSaved
-        {
-            get => isSaved;
-            private set => SetProperty(ref isSaved, value);
-        }
-
-        private AubFile(string path, string content)
-        {
-            this.FilePath = path;
-            this.Content = content;
-            this.IsSaved = true;
-        }
-
-        public static AubFile OpenAubFile(string path)
-        {
-            return new AubFile(path, File.ReadAllText(path));
-        }
-
-        public static AubFile NewAubFile(string path)
-        {
-            return new AubFile(path, "");
-        }
-
-        public void Save()
-        {
-            File.WriteAllText(FilePath, Content);
-            IsSaved = true;
-        }
-    }
-
     public class MainWindowViewModel : BaseViewModel
     {
         private ObservableCollection<AubFile> files;
@@ -205,7 +81,37 @@ namespace Compiler.Interface.ViewModels
             SaveFileCommand = new DelegateCommand(SaveFileCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
             SaveAllFilesCommand = new DelegateCommand(SaveAllFilesCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
             SaveAsCommand = new DelegateCommand(SaveAsCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
-            PrintFileCommand = new DelegateCommand(PrintFileCommandExecuted, IsSelectedFile).ObservesProperty(() => SelectedFile);
+            NextTabCommand = new DelegateCommand(NextTabCommandExecuted, () => SelectedFile != null && Files.Count > 1).ObservesProperty(() => SelectedFile).ObservesProperty(() => Files);
+            WindowClosing = new DelegateCommand(WindowClosingExecuted);
+
+            EventAggregator.GetEvent<CloseFilePubSub>().Subscribe(file => CloseFile(file));
+        }
+
+        private void WindowClosingExecuted()
+        {
+            ExitApplicationCommandExecuted();
+        }
+
+        private void NextTabCommandExecuted()
+        {
+            if (SelectedFile == null || Files.Count <= 1)
+                return;
+
+            try
+            {
+                int index = Files.IndexOf(SelectedFile);
+
+                int nextTabIndex = index + 1;
+
+                if (nextTabIndex == Files.Count)
+                    nextTabIndex = 0;
+
+                SelectedFile = Files[nextTabIndex];
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex);
+            }
         }
 
         private bool IsSelectedFile() => SelectedFile != null;
@@ -235,13 +141,16 @@ namespace Compiler.Interface.ViewModels
         {
             try
             {
-                string filePath = DialogService.OpenFileDialog();
-                if (string.IsNullOrEmpty(filePath))
+                string[] filePaths = DialogService.OpenFileDialog();
+                if (filePaths == null || filePaths.Length == 0)
                     return;
 
-                AubFile newFile = AubFile.OpenAubFile(filePath);
-                Files.Add(newFile);
-                SelectedFile = newFile;
+                foreach (string filePath in filePaths)
+                {
+                    AubFile newFile = AubFile.OpenAubFile(filePath);
+                    Files.Add(newFile);
+                    SelectedFile = newFile;
+                }
             }
             catch (Exception ex)
             {
@@ -254,11 +163,16 @@ namespace Compiler.Interface.ViewModels
             if (SelectedFile == null)
                 return;
 
+            CloseFile(SelectedFile);
+        }
+
+        private void CloseFile(AubFile file)
+        {
             try
             {
-                MessageBoxResult result = CloseFileIfUserConfirm(SelectedFile);
+                MessageBoxResult result = CloseFileIfUserConfirm(file);
                 if (result != MessageBoxResult.Cancel)
-                    Files.Remove(SelectedFile);
+                    Files.Remove(file);
             }
             catch (Exception ex)
             {
@@ -270,7 +184,9 @@ namespace Compiler.Interface.ViewModels
         {
             try
             {
-                foreach (AubFile item in Files)
+                // The ToList method here is essential, do not remove it, it is fix for an exception
+                // https://stackoverflow.com/a/27851493
+                foreach (AubFile item in Files.ToList())
                 {
                     MessageBoxResult result = CloseFileIfUserConfirm(item);
                     if (result != MessageBoxResult.Cancel)
@@ -345,21 +261,10 @@ namespace Compiler.Interface.ViewModels
 
                 using (File.Create(filePath))
                 { }
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex);
-            }
-        }
 
-        private void PrintFileCommandExecuted()
-        {
-            if (SelectedFile == null)
-                return;
-
-            try
-            {
-                DialogService.PrintFileDialog();
+                AubFile saveAsFile = AubFile.NewAubFile(filePath);
+                saveAsFile.Content = SelectedFile.Content;
+                saveAsFile.Save();
             }
             catch (Exception ex)
             {
@@ -438,6 +343,7 @@ namespace Compiler.Interface.ViewModels
 
         private void ExitApplicationCommandExecuted()
         {
+            CloseAllFilesCommandExecuted();
             Application.Current.Shutdown();
         }
 
@@ -451,8 +357,6 @@ namespace Compiler.Interface.ViewModels
         public ICommand SaveFileCommand { get; }
         public ICommand SaveAllFilesCommand { get; }
         public ICommand SaveAsCommand { get; }
-
-        public ICommand PrintFileCommand { get; }
 
         public ICommand BuildCommand { get; }
         public ICommand ExecuteCommand { get; }
@@ -468,12 +372,14 @@ namespace Compiler.Interface.ViewModels
         public ICommand CutCommand { get; }
         public ICommand CopyCommand { get; }
         public ICommand PasteCommand { get; }
+        public ICommand NextTabCommand { get; }
+        public ICommand WindowClosing { get; }
 
         private void BuildCommandExecuted()
         {
             try
             {
-                Compiler.CompileMainProgram("file1");
+                Compiler.CompileMainProgram(SelectedFile.FilePath);
             }
             catch (Exception ex)
             {
@@ -485,7 +391,7 @@ namespace Compiler.Interface.ViewModels
         {
             try
             {
-                //compiler.CompileMainProgram("file1");
+                Compiler.CompileMainProgram(SelectedFile.FilePath);
                 ConsoleWindowInteractionRequest.Raise(new Notification { Title = "Console" });
 
                 Executer exe = new Executer();

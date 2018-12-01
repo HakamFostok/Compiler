@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using Microsoft.Win32;
 
@@ -8,11 +9,9 @@ namespace Compiler.Interface
     {
         MessageBoxResult ShowConfirmation(string content);
 
-        string OpenFileDialog();
+        string[] OpenFileDialog();
 
         string SaveFileDialog();
-
-        string PrintFileDialog();
     }
 
     public class FileDialogsService : IFileDialogsService
@@ -22,14 +21,15 @@ namespace Compiler.Interface
             return MessageBox.Show(content, "Confirmation", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
         }
 
-        public string OpenFileDialog()
+        public string[] OpenFileDialog()
         {
             OpenFileDialog dialog = new OpenFileDialog();
             Initialize(dialog);
+            dialog.Multiselect = true;
 
             bool? result = dialog.ShowDialog();
             if (result.HasValue && result.Value)
-                return dialog.FileName;
+                return dialog.FileNames;
             return null;
         }
 
@@ -42,11 +42,6 @@ namespace Compiler.Interface
             if (result.HasValue && result.Value)
                 return dialog.FileName;
             return null;
-        }
-
-        public string PrintFileDialog()
-        {
-            throw new NotImplementedException();
         }
 
         private void Initialize(FileDialog dialog)

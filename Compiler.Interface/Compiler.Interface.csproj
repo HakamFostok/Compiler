@@ -115,6 +115,7 @@
     <Compile Include="Core\BooleanVisibleConverter.cs" />
     <Compile Include="Core\DelegateCommandAsync.cs" />
     <Compile Include="Core\FileDialogs.cs" />
+    <Compile Include="ViewModels\AubFile.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ConsoleWindowViewModel.cs" />
     <Compile Include="ViewModels\ErrorPanelViewModel.cs" />

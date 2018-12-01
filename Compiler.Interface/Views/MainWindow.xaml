@@ -19,11 +19,10 @@
         <KeyBinding Key="N" Modifiers="Control" Command="{Binding NewFileCommand}"/>
         <KeyBinding Key="O" Modifiers="Control" Command="{Binding OpenFileCommand}"/>
         <KeyBinding Key="F4" Modifiers="Control" Command="{Binding CloseFileCommand}"/>
-  
+
         <KeyBinding Key="S" Modifiers="Control" Command="{Binding SaveFileCommand}"/>
         <KeyBinding Key="S" Modifiers="Control+Shift" Command="{Binding SaveAllFilesCommand}"/>
 
-        <KeyBinding Key="P" Modifiers="Control" Command="{Binding PrintFileCommand}"/>
         <KeyBinding Key="F4" Modifiers="Alt" Command="{Binding ExitApplicationCommand}"/>
 
         <KeyBinding Key="Z" Modifiers="Control" Command="{Binding UndoCommand}"/>
@@ -38,9 +37,15 @@
 
         <KeyBinding Key="F6" Command="{Binding BuildCommand}"/>
         <KeyBinding Key="F5" Command="{Binding ExecuteCommand}"/>
+
+        <KeyBinding Key="Tab" Modifiers="Ctrl" Command="{Binding NextTabCommand}" />
     </Window.InputBindings>
 
     <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding WindowClosing}" />
+        </i:EventTrigger>
+        
         <prism:InteractionRequestTrigger SourceObject="{Binding ConsoleWindowInteractionRequest, Mode=OneWay}" >
             <prism:PopupWindowAction WindowStartupLocation="CenterScreen" IsModal="True">
                 <prism:PopupWindowAction.WindowContent>
@@ -67,8 +72,6 @@
                     <MenuItem Header="_Save" Command="{Binding SaveFileCommand}" InputGestureText="Ctrl + S"/>
                     <MenuItem Header="_Save All" Command="{Binding SaveAllFilesCommand}" InputGestureText="Ctrl + Shift + S"/>
                     <MenuItem Header="_Save As" Command="{Binding SaveAsCommand}"/>
-                    <Separator />
-                    <MenuItem Header="_Print" Command="{Binding PrintFileCommand}" InputGestureText="Ctrl + P"/>
                     <Separator />
                     <MenuItem Header="_Exit" Command="{Binding ExitApplicationCommand}" InputGestureText="Alt + F4"/>
                 </MenuItem>
@@ -128,7 +131,8 @@
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding FileName}" />
-                            <TextBlock Margin="5,0,0,0" Text="*" Visibility="{Binding IsSaved, Converter={StaticResource converter}}"/>
+                            <TextBlock Margin="5,0,5,0" Text="*" Visibility="{Binding IsSaved, Converter={StaticResource converter}}"/>
+                            <Button Padding="3" Command="{Binding CloseFileCommand}">x</Button>
                         </StackPanel>
                     </DataTemplate>
                 </TabControl.ItemTemplate>
