@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Runtime.Serialization;
-using Compiler.Core;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Compiler.Core
 {

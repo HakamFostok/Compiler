@@ -8,7 +8,7 @@ namespace Compiler.Core
     {
         public MacroErrorException()
         { }
-         
+
         public MacroErrorException(string message, int column, int lineNumber, string fileName)
             : base(message, column, lineNumber, fileName)
         { }

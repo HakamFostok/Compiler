@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Compiler.Core
 {
@@ -868,7 +868,7 @@ namespace Compiler.Core
             UL = LexicalUnit();
             if (UL == TypeSymbol.U_UnKown)
             {
-                IdentifierInstruction.AddIdentifier(G_curr_Str, ref  Locals.gvar);
+                IdentifierInstruction.AddIdentifier(G_curr_Str, ref Locals.gvar);
                 G_curr_ID = gVar;
             }
             else if (UL != TypeSymbol.U_Var)

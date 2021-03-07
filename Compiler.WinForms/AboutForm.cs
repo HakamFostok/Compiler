@@ -9,6 +9,6 @@ namespace Compiler.Core
             InitializeComponent();
         }
 
-      
+
     }
 }

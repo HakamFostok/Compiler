@@ -817,8 +817,8 @@ namespace Compiler.Core
             return TypeSymbol.U_Cst_Str;
         }
 
-        internal static Dictionary<int, char> invValues = new Dictionary<int, char> 
-        { 
+        internal static Dictionary<int, char> invValues = new Dictionary<int, char>
+        {
             { 10, 'a' },
             { 11, 'b' },
             { 12, 'c' },
@@ -827,8 +827,8 @@ namespace Compiler.Core
             { 15, 'f' },
         };
 
-        internal static Dictionary<char, int> values = new Dictionary<char, int> 
-        { 
+        internal static Dictionary<char, int> values = new Dictionary<char, int>
+        {
             { 'a', 10 },
             { 'b', 11 },
             { 'c', 12 },

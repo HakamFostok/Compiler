@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+
 using Compiler.Core;
 using Compiler.WinForms.Properties;
-using System.Linq;
 
 namespace Compiler.WinForms
 {

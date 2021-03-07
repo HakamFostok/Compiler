@@ -1,7 +1,7 @@
 ﻿namespace Compiler.Core
 {
     [System.Serializable]
-    class IfInstruction 
+    class IfInstruction
     {
         internal BaseInstruction Ins { get; set; }
         internal TExpression Cond { get; set; }

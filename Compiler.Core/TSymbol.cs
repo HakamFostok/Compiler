@@ -5,7 +5,7 @@
         internal string Name { get; set; }
         internal TypeSymbol UL { get; set; }
         internal TSymbol Next { get; set; }
-        
+
         internal static TSymbol FindSymbol(string name, TSymbol gSymbol)
         {
             TSymbol temp = gSymbol;
