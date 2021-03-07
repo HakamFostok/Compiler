@@ -1,135 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9158B7D1-BB17-4AF4-B637-37B1B9F87CF2}</ProjectGuid>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Compiler.Core</RootNamespace>
-    <AssemblyName>Compiler.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;doc</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.2.212405">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.2" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AubCompiler.cs" />
-    <Compile Include="CompilerLibraryResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CompilerLibraryResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Exceptions\CompileTimeErrorException.cs" />
-    <Compile Include="Exceptions\ErrorBaseException.cs" />
-    <Compile Include="Executer.cs" />
-    <Compile Include="InputForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InputForm.Designer.cs">
-      <DependentUpon>InputForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LexicalAnalyst.cs" />
-    <Compile Include="Exceptions\LexicalErrorException.cs" />
-    <Compile Include="Exceptions\MacroErrorException.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Exceptions\RuntimeErrorException.cs" />
-    <Compile Include="RuntimeMessagesError.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RuntimeMessagesError.resx</DependentUpon>
-    </Compile>
-    <Compile Include="SyntaxAnalyst.cs" />
-    <Compile Include="Exceptions\SyntaxErrorException.cs" />
-    <Compile Include="SyntaxMessagesError.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SyntaxMessagesError.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Instructions\AssignInstruction.cs" />
-    <Compile Include="Instructions\BreakInstruction.cs" />
-    <Compile Include="Instructions\CallInstruction.cs" />
-    <Compile Include="Instructions\DefineInstruction.cs" />
-    <Compile Include="Instructions\DoWhileInstruction.cs" />
-    <Compile Include="TExpression.cs" />
-    <Compile Include="TFile.cs" />
-    <Compile Include="Instructions\ForInstruction.cs" />
-    <Compile Include="Instructions\IdentifierInstruction.cs" />
-    <Compile Include="Instructions\IfInstruction.cs" />
-    <Compile Include="Instructions\BaseInstruction.cs" />
-    <Compile Include="TItem.cs" />
-    <Compile Include="TListVar.cs" />
-    <Compile Include="Instructions\ProcedureInstruction.cs" />
-    <Compile Include="Instructions\ReadInstruction.cs" />
-    <Compile Include="Instructions\RepeatUntilInstruction.cs" />
-    <Compile Include="Instructions\ReturnInstruction.cs" />
-    <Compile Include="TSymbol.cs" />
-    <Compile Include="TVar.cs" />
-    <Compile Include="Instructions\WhileInstruction.cs" />
-    <Compile Include="TWrite.cs" />
-    <Compile Include="TypeSymbol.cs" />
-    <Compile Include="Utility.cs" />
-    <Compile Include="Variables.cs" />
-    <Compile Include="Exceptions\WarningException.cs" />
-    <Compile Include="WordMessagesError.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WordMessagesError.resx</DependentUpon>
-    </Compile>
-    <Compile Include="WriteEventArgs.cs" />
+    <Compile Remove="Instructions\IExecutable.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="keywords.ini" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="CompilerLibraryResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>CompilerLibraryResource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InputForm.resx">
-      <DependentUpon>InputForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RuntimeMessagesError.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>RuntimeMessagesError.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SyntaxMessagesError.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>SyntaxMessagesError.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WordMessagesError.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>WordMessagesError.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

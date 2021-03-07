@@ -1,0 +1,89 @@
+2021-03-07 11:18:00.520 +03:00 [INF] MSBuild registered from C:\Program Files\dotnet\sdk\5.0.200\
+2021-03-07 11:18:00.586 +03:00 [INF] Registered 1 extensions:
+	Default extension
+2021-03-07 11:18:03.480 +03:00 [INF] Initializing upgrade step Select an entrypoint
+2021-03-07 11:18:34.873 +03:00 [INF] Applying upgrade step Select an entrypoint
+2021-03-07 11:18:52.308 +03:00 [INF] Upgrade step Select an entrypoint applied successfully
+2021-03-07 11:19:00.853 +03:00 [INF] Initializing upgrade step Select project to upgrade
+2021-03-07 11:19:13.749 +03:00 [INF] Applying upgrade step Select project to upgrade
+2021-03-07 11:19:35.450 +03:00 [INF] Upgrade step Select project to upgrade applied successfully
+2021-03-07 11:19:41.989 +03:00 [INF] Initializing upgrade step Back up project
+2021-03-07 11:19:54.914 +03:00 [INF] Applying upgrade step Back up project
+2021-03-07 11:20:06.058 +03:00 [INF] Backing up C:\Users\user\source\repos\Compiler\Compiler.Core to C:\Users\user\source\repos\Compiler\Compiler.Core.backup
+2021-03-07 11:20:07.090 +03:00 [INF] Project backed up to C:\Users\user\source\repos\Compiler\Compiler.Core.backup
+2021-03-07 11:20:07.091 +03:00 [INF] Upgrade step Back up project applied successfully
+2021-03-07 11:20:14.023 +03:00 [INF] Initializing upgrade step Convert project file to SDK style
+2021-03-07 11:20:26.272 +03:00 [INF] Applying upgrade step Convert project file to SDK style
+2021-03-07 11:20:26.275 +03:00 [INF] Converting project file format with try-convert
+2021-03-07 11:20:31.065 +03:00 [INF] [try-convert] Conversion complete!
+2021-03-07 11:20:31.553 +03:00 [INF] Project file converted successfully! The project may require additional changes to build successfully against the new .NET target.
+2021-03-07 11:20:35.994 +03:00 [INF] Upgrade step Convert project file to SDK style applied successfully
+2021-03-07 11:21:05.416 +03:00 [INF] Initializing upgrade step Update TFM
+2021-03-07 11:21:10.821 +03:00 [INF] Applying upgrade step Update TFM
+2021-03-07 11:21:15.716 +03:00 [INF] Upgrade step Update TFM applied successfully
+2021-03-07 11:21:17.987 +03:00 [INF] Initializing upgrade step Update NuGet packages
+2021-03-07 11:21:21.035 +03:00 [INF] Reference to .NET Upgrade Assistant analyzer package (Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, version 0.2.212405) needs added
+2021-03-07 11:21:22.266 +03:00 [INF] Adding Microsoft.Windows.Compatibility 5.0.2
+2021-03-07 11:21:22.270 +03:00 [INF] Packages to be addded:
+Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.2.212405
+Microsoft.Windows.Compatibility, Version=5.0.2
+2021-03-07 11:21:27.351 +03:00 [INF] Applying upgrade step Update NuGet packages
+2021-03-07 11:21:27.367 +03:00 [INF] Adding package reference: Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.2.212405
+2021-03-07 11:21:27.372 +03:00 [INF] Adding package reference: Microsoft.Windows.Compatibility, Version=5.0.2
+2021-03-07 11:22:08.586 +03:00 [INF] Marking package System.Data.DataSetExtensions for removal because it appears to be a transitive dependency
+2021-03-07 11:22:08.706 +03:00 [INF] Removing outdated package reference: System.Data.DataSetExtensions, Version=4.5.0
+2021-03-07 11:22:11.019 +03:00 [INF] Upgrade step Update NuGet packages applied successfully
+2021-03-07 11:22:17.547 +03:00 [INF] Initializing upgrade step Add template files
+2021-03-07 11:22:17.571 +03:00 [INF] 0 expected template items needed
+2021-03-07 11:22:17.573 +03:00 [INF] Initializing upgrade step Update C# source
+2021-03-07 11:22:19.449 +03:00 [INF] Initializing upgrade step Move to next project
+2021-03-07 11:22:25.344 +03:00 [INF] Applying upgrade step Move to next project
+2021-03-07 11:22:25.348 +03:00 [INF] Upgrade step Move to next project applied successfully
+2021-03-07 11:22:28.779 +03:00 [INF] Initializing upgrade step Select project to upgrade
+2021-03-07 11:22:39.284 +03:00 [INF] Applying upgrade step Select project to upgrade
+2021-03-07 11:22:44.384 +03:00 [INF] Upgrade step Select project to upgrade applied successfully
+2021-03-07 11:22:47.613 +03:00 [INF] Initializing upgrade step Back up project
+2021-03-07 11:22:50.906 +03:00 [INF] Applying upgrade step Back up project
+2021-03-07 11:22:53.677 +03:00 [INF] Backing up C:\Users\user\source\repos\Compiler\Compiler.WinForms to C:\Users\user\source\repos\Compiler\Compiler.WinForms.backup
+2021-03-07 11:22:54.342 +03:00 [INF] Project backed up to C:\Users\user\source\repos\Compiler\Compiler.WinForms.backup
+2021-03-07 11:22:54.344 +03:00 [INF] Upgrade step Back up project applied successfully
+2021-03-07 11:23:04.312 +03:00 [INF] Initializing upgrade step Convert project file to SDK style
+2021-03-07 11:23:07.589 +03:00 [INF] Applying upgrade step Convert project file to SDK style
+2021-03-07 11:23:07.592 +03:00 [INF] Converting project file format with try-convert
+2021-03-07 11:23:08.253 +03:00 [INF] [try-convert] C:\Users\user\source\repos\Compiler\Compiler.WinForms\Compiler.WinForms.csproj contains an App.config file. App.config is replaced by appsettings.json in .NET Core. You will need to delete App.config and migrate to appsettings.json if it's applicable to your project.
+2021-03-07 11:23:10.753 +03:00 [INF] [try-convert] Conversion complete!
+2021-03-07 11:23:11.113 +03:00 [INF] Project file converted successfully! The project may require additional changes to build successfully against the new .NET target.
+2021-03-07 11:23:12.798 +03:00 [INF] Upgrade step Convert project file to SDK style applied successfully
+2021-03-07 11:23:30.413 +03:00 [INF] Initializing upgrade step Update TFM
+2021-03-07 11:23:32.975 +03:00 [INF] Applying upgrade step Update TFM
+2021-03-07 11:23:35.631 +03:00 [INF] Upgrade step Update TFM applied successfully
+2021-03-07 11:23:44.331 +03:00 [INF] Initializing upgrade step Update NuGet packages
+2021-03-07 11:23:46.010 +03:00 [INF] Marking package Microsoft.CSharp for removal because it appears to be a transitive dependency
+2021-03-07 11:23:46.015 +03:00 [INF] Marking package System.Data.DataSetExtensions for removal because it appears to be a transitive dependency
+2021-03-07 11:23:46.032 +03:00 [INF] Reference to .NET Upgrade Assistant analyzer package (Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, version 0.2.212405) needs added
+2021-03-07 11:23:46.037 +03:00 [INF] Packages to be removed:
+Microsoft.CSharp, Version=4.7.0
+System.Data.DataSetExtensions, Version=4.5.0
+2021-03-07 11:23:46.039 +03:00 [INF] Packages to be addded:
+Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.2.212405
+2021-03-07 11:23:49.144 +03:00 [INF] Applying upgrade step Update NuGet packages
+2021-03-07 11:23:49.148 +03:00 [INF] Removing outdated package reference: Microsoft.CSharp, Version=4.7.0
+2021-03-07 11:23:49.151 +03:00 [INF] Removing outdated package reference: System.Data.DataSetExtensions, Version=4.5.0
+2021-03-07 11:23:49.153 +03:00 [INF] Adding package reference: Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.2.212405
+2021-03-07 11:23:51.768 +03:00 [INF] Upgrade step Update NuGet packages applied successfully
+2021-03-07 11:23:55.986 +03:00 [INF] Initializing upgrade step Add template files
+2021-03-07 11:23:55.991 +03:00 [INF] 0 expected template items needed
+2021-03-07 11:23:55.995 +03:00 [INF] Initializing upgrade step Upgrade app config files
+2021-03-07 11:23:56.032 +03:00 [INF] Found 0 app settings for upgrade: 
+2021-03-07 11:23:56.041 +03:00 [INF] 0 web page namespace imports need upgraded: 
+2021-03-07 11:23:56.044 +03:00 [INF] Initializing upgrade step Update C# source
+2021-03-07 11:23:56.370 +03:00 [INF] Initializing upgrade step Move to next project
+2021-03-07 11:24:04.574 +03:00 [INF] Applying upgrade step Move to next project
+2021-03-07 11:24:04.576 +03:00 [INF] Upgrade step Move to next project applied successfully
+2021-03-07 11:24:06.778 +03:00 [INF] Initializing upgrade step Select project to upgrade
+2021-03-07 11:24:10.160 +03:00 [INF] Applying upgrade step Select project to upgrade
+2021-03-07 11:24:13.587 +03:00 [ERR] Unknown selection: ''
+2021-03-07 11:24:15.465 +03:00 [ERR] Unknown selection: ''
+2021-03-07 11:24:19.360 +03:00 [ERR] Unknown selection: ''
+2021-03-07 11:24:21.144 +03:00 [ERR] Unknown selection: 'cls'
+2021-03-07 11:24:23.095 +03:00 [INF] Saving upgrade progress file at C:\Users\user\source\repos\Compiler\.upgrade-assistant
