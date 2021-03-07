@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <local:BooleanVisibleConverter x:Key="converter" />
+        <!--<local:BooleanVisibleConverter x:Key="converter" />-->
     </UserControl.Resources>
     <Grid>
         <TabControl ItemsSource="{Binding Files}" SelectedItem="{Binding SelectedFile}">
@@ -18,7 +18,8 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding FileName}" />
-                        <TextBlock Margin="5,0,5,0" Text="*" Visibility="{Binding IsSaved, Converter={StaticResource converter}}"/>
+                        <TextBlock Margin="5,0,5,0" Text="*" />
+                        <!--Visibility="{Binding IsSaved, Converter={StaticResource converter}}"-->
                         <Button Padding="3" Command="{Binding CloseFileCommand}">x</Button>
                     </StackPanel>
                 </DataTemplate>
@@ -26,7 +27,7 @@
             <TabControl.ContentTemplate>
                 <DataTemplate>
                     <TextBox Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" >
-                        <i:Interaction.Behaviors>
+                        <!--<i:Interaction.Behaviors>
                             <local:SelectAllTextBehavior SelectTrigger="{Binding SelectTrigger, Mode=TwoWay}" />
                             <local:DeselectAllTextBehavior DeselectTrigger="{Binding DeselectTrigger, Mode=TwoWay}" />
                             <local:ClearTextBehavior ClearTextTrigger="{Binding ClearTextTrigger, Mode=TwoWay}" />
@@ -36,7 +37,7 @@
                             <local:CutBehavior CutTrigger="{Binding CutTrigger, Mode=TwoWay}" />
                             <local:CopyBehavior CopyTrigger="{Binding CopyTrigger, Mode=TwoWay}" />
                             <local:PasteBehavior PasteTrigger="{Binding PasteTrigger, Mode=TwoWay}" />
-                        </i:Interaction.Behaviors>
+                        </i:Interaction.Behaviors>-->
                     </TextBox>
                 </DataTemplate>
             </TabControl.ContentTemplate>

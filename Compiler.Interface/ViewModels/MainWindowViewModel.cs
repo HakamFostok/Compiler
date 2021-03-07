@@ -1,7 +1,6 @@
 ﻿using Compiler.Core;
 using Compiler.Interface.Properties;
 using Prism.Commands;
-using Prism.Interactivity.InteractionRequest;
 using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -10,7 +9,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using Unity.Attributes;
+
+using Unity;
 
 namespace Compiler.Interface.ViewModels
 {
@@ -33,9 +33,9 @@ namespace Compiler.Interface.ViewModels
         [Dependency]
         internal ICompiler Compiler { get; set; }
 
-        public InteractionRequest<Notification> AboutWindowInteractionRequest { get; } = new InteractionRequest<Notification>();
-        public InteractionRequest<Notification> OptionsWindowInteractionRequest { get; } = new InteractionRequest<Notification>();
-        public InteractionRequest<Notification> ConsoleWindowInteractionRequest { get; } = new InteractionRequest<Notification>();
+        //public InteractionRequest<Notification> AboutWindowInteractionRequest { get; } = new InteractionRequest<Notification>();
+        //public InteractionRequest<Notification> OptionsWindowInteractionRequest { get; } = new InteractionRequest<Notification>();
+        //public InteractionRequest<Notification> ConsoleWindowInteractionRequest { get; } = new InteractionRequest<Notification>();
 
         #region StatusBar
 
@@ -391,18 +391,18 @@ namespace Compiler.Interface.ViewModels
         {
             try
             {
-                Compiler.CompileMainProgram(SelectedFile.FilePath);
-                ConsoleWindowInteractionRequest.Raise(new Notification { Title = "Console" });
+                //Compiler.CompileMainProgram(SelectedFile.FilePath);
+                //ConsoleWindowInteractionRequest.Raise(new Notification { Title = "Console" });
 
-                Executer exe = new Executer();
+                //Executer exe = new Executer();
 
-                Action<object, WriteEventArgs> writeHandler = (obj, eve) =>
-                {
-                    EventAggregator.GetEvent<WriteEventPubSub>().Publish(eve);
-                };
+                //Action<object, WriteEventArgs> writeHandler = (obj, eve) =>
+                //{
+                //    EventAggregator.GetEvent<WriteEventPubSub>().Publish(eve);
+                //};
 
-                exe.EndOfExecute += new EventHandler<WriteEventArgs>(writeHandler);
-                exe.WriteEvent += new EventHandler<WriteEventArgs>(writeHandler);
+                //exe.EndOfExecute += new EventHandler<WriteEventArgs>(writeHandler);
+                //exe.WriteEvent += new EventHandler<WriteEventArgs>(writeHandler);
             }
             catch (Exception ex)
             {
@@ -424,12 +424,12 @@ namespace Compiler.Interface.ViewModels
 
         private void AboutCommandExecuted()
         {
-            AboutWindowInteractionRequest.Raise(new Notification { Title = "About" });
+            //AboutWindowInteractionRequest.Raise(new Notification { Title = "About" });
         }
 
         private void OptionsCommandExecuted()
         {
-            OptionsWindowInteractionRequest.Raise(new Notification { Title = "Options" });
+            //OptionsWindowInteractionRequest.Raise(new Notification { Title = "Options" });
         }
     }
 }

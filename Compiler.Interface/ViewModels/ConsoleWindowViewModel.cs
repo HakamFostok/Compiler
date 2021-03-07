@@ -1,11 +1,10 @@
 ﻿using Prism.Commands;
-using Prism.Interactivity.InteractionRequest;
 using System;
 using System.Windows.Input;
 
 namespace Compiler.Interface.ViewModels
 {
-    public class ConsoleWindowViewModel : BaseViewModel, IInteractionRequestAware
+    public class ConsoleWindowViewModel : BaseViewModel
     {
         private bool isExecutionEnded;
         public bool IsExecutionEnded
@@ -49,15 +48,15 @@ namespace Compiler.Interface.ViewModels
             if (isExecutionEnded == true && obj.Key == Key.Enter)
             {
                 ClearScreen();
-                FinishInteraction();
+                //FinishInteraction();
             }
         }
 
-        #region IInteractionRequestAware
+        //#region IInteractionRequestAware
 
-        public INotification Notification { get; set; }
-        public Action FinishInteraction { get; set; }
+        //public INotification Notification { get; set; }
+        //public Action FinishInteraction { get; set; }
         
-        #endregion
+        //#endregion
     }
 }

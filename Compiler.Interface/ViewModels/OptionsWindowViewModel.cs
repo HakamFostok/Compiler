@@ -1,12 +1,11 @@
 ﻿using Compiler.Interface.Properties;
 using Prism.Commands;
-using Prism.Interactivity.InteractionRequest;
 using System;
 using System.Windows.Input;
 
 namespace Compiler.Interface.ViewModels
 {
-    public class OptionsWindowViewModel : BaseViewModel, IInteractionRequestAware
+    public class OptionsWindowViewModel : BaseViewModel
     {
         private bool reloadFiles;
         public bool ReloadFiles
@@ -43,7 +42,7 @@ namespace Compiler.Interface.ViewModels
 
                 Settings.Default.Save();
 
-                FinishInteraction();
+                //FinishInteraction();
             }
             catch (Exception ex)
             {
@@ -53,12 +52,12 @@ namespace Compiler.Interface.ViewModels
 
         private void CancelCommandExecuted()
         {
-            FinishInteraction();
+            //FinishInteraction();
         }
 
-        #region IInteractionRequestAware
-        public INotification Notification { get; set; }
-        public Action FinishInteraction { get; set; }
-        #endregion
+        //#region IInteractionRequestAware
+        //public INotification Notification { get; set; }
+        //public Action FinishInteraction { get; set; }
+        //#endregion
     }
 }

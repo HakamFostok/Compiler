@@ -3,17 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Compiler.Interface"
-        xmlns:views="clr-namespace:Compiler.Interface.Views"
-        xmlns:prism="http://prismlibrary.com/"
-        xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
-        prism:ViewModelLocator.AutoWireViewModel="True"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         WindowState="Maximized"
         Title="Compiler" Height="450" Width="800">
     <Window.Resources>
-        <local:BooleanVisibleConverter x:Key="converter" />
+        <!--<local:BooleanVisibleConverter x:Key="converter" />-->
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Key="N" Modifiers="Control" Command="{Binding NewFileCommand}"/>
@@ -41,7 +35,7 @@
         <KeyBinding Key="Tab" Modifiers="Ctrl" Command="{Binding NextTabCommand}" />
     </Window.InputBindings>
 
-    <i:Interaction.Triggers>
+    <!--<i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
             <i:InvokeCommandAction Command="{Binding WindowClosing}" />
         </i:EventTrigger>
@@ -53,7 +47,7 @@
                 </prism:PopupWindowAction.WindowContent>
             </prism:PopupWindowAction>
         </prism:InteractionRequestTrigger>
-    </i:Interaction.Triggers>
+    </i:Interaction.Triggers>-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -88,7 +82,7 @@
                     <MenuItem Header="_Paste" Command="{Binding PasteCommand}" InputGestureText="Ctrl + V"/>
                     <Separator />
                     <MenuItem Header="Options" Command="{Binding OptionsCommand}">
-                        <i:Interaction.Triggers>
+                        <!--<i:Interaction.Triggers>
                             <prism:InteractionRequestTrigger SourceObject="{Binding OptionsWindowInteractionRequest, Mode=OneWay}" >
                                 <prism:PopupWindowAction WindowStartupLocation="CenterScreen" IsModal="True">
                                     <prism:PopupWindowAction.WindowContent>
@@ -96,7 +90,7 @@
                                     </prism:PopupWindowAction.WindowContent>
                                 </prism:PopupWindowAction>
                             </prism:InteractionRequestTrigger>
-                        </i:Interaction.Triggers>
+                        </i:Interaction.Triggers>-->
                     </MenuItem>
                 </MenuItem>
 
@@ -108,7 +102,7 @@
 
                 <MenuItem Header="_Help">
                     <MenuItem Header="About" Command="{Binding AboutCommand}">
-                        <i:Interaction.Triggers>
+                        <!--<i:Interaction.Triggers>
                             <prism:InteractionRequestTrigger SourceObject="{Binding AboutWindowInteractionRequest, Mode=OneWay}" >
                                 <prism:PopupWindowAction WindowStartupLocation="CenterScreen" IsModal="True">
                                     <prism:PopupWindowAction.WindowContent>
@@ -116,7 +110,7 @@
                                     </prism:PopupWindowAction.WindowContent>
                                 </prism:PopupWindowAction>
                             </prism:InteractionRequestTrigger>
-                        </i:Interaction.Triggers>
+                        </i:Interaction.Triggers>-->
                     </MenuItem>
                 </MenuItem>
             </Menu>
@@ -131,7 +125,8 @@
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding FileName}" />
-                            <TextBlock Margin="5,0,5,0" Text="*" Visibility="{Binding IsSaved, Converter={StaticResource converter}}"/>
+                            <TextBlock Margin="5,0,5,0" Text="*" />
+                            <!--Visibility="{Binding IsSaved, Converter={StaticResource converter}}"-->
                             <Button Padding="3" Command="{Binding CloseFileCommand}">x</Button>
                         </StackPanel>
                     </DataTemplate>
@@ -139,7 +134,7 @@
                 <TabControl.ContentTemplate>
                     <DataTemplate>
                         <TextBox Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" >
-                            <i:Interaction.Behaviors>
+                            <!--<i:Interaction.Behaviors>
                                 <local:SelectAllTextBehavior SelectTrigger="{Binding SelectTrigger, Mode=TwoWay}" />
                                 <local:DeselectAllTextBehavior DeselectTrigger="{Binding DeselectTrigger, Mode=TwoWay}" />
                                 <local:ClearTextBehavior ClearTextTrigger="{Binding ClearTextTrigger, Mode=TwoWay}" />
@@ -149,14 +144,14 @@
                                 <local:CutBehavior CutTrigger="{Binding CutTrigger, Mode=TwoWay}" />
                                 <local:CopyBehavior CopyTrigger="{Binding CopyTrigger, Mode=TwoWay}" />
                                 <local:PasteBehavior PasteTrigger="{Binding PasteTrigger, Mode=TwoWay}" />
-                            </i:Interaction.Behaviors>
+                            </i:Interaction.Behaviors>-->
                         </TextBox>
                     </DataTemplate>
                 </TabControl.ContentTemplate>
             </TabControl>
             <TabControl Margin="5" Grid.Row="1">
                 <TabItem Header="Errors">
-                    <views:ErrorPanelView/>
+                    <!--<views:ErrorPanelView/>-->
                 </TabItem>
             </TabControl>
         </Grid>

@@ -1,0 +1,108 @@
+2021-03-07 11:41:29.483 +03:00 [INF] MSBuild registered from C:\Program Files\dotnet\sdk\5.0.200\
+2021-03-07 11:41:29.519 +03:00 [INF] Registered 1 extensions:
+	Default extension
+2021-03-07 11:41:31.444 +03:00 [INF] Initializing upgrade step Select an entrypoint
+2021-03-07 11:41:37.721 +03:00 [INF] Applying upgrade step Select an entrypoint
+2021-03-07 11:41:44.794 +03:00 [INF] Upgrade step Select an entrypoint applied successfully
+2021-03-07 11:41:50.135 +03:00 [INF] Initializing upgrade step Back up project
+2021-03-07 11:42:15.039 +03:00 [INF] Applying upgrade step Back up project
+2021-03-07 11:42:19.298 +03:00 [INF] Backing up C:\Users\user\source\repos\Compiler\compiler.Interface to C:\Users\user\source\repos\Compiler\compiler.Interface.backup
+2021-03-07 11:42:19.361 +03:00 [WRN] Could not copy file C:\Users\user\source\repos\Compiler\compiler.Interface\log.txt due to 'The process cannot access the file 'C:\Users\user\source\repos\Compiler\compiler.Interface\log.txt' because it is being used by another process.'
+2021-03-07 11:42:20.133 +03:00 [INF] Project backed up to C:\Users\user\source\repos\Compiler\compiler.Interface.backup
+2021-03-07 11:42:20.135 +03:00 [INF] Upgrade step Back up project applied successfully
+2021-03-07 11:42:23.866 +03:00 [INF] Initializing upgrade step Convert project file to SDK style
+2021-03-07 11:42:27.002 +03:00 [INF] Applying upgrade step Convert project file to SDK style
+2021-03-07 11:42:27.018 +03:00 [INF] Converting project file format with try-convert
+2021-03-07 11:42:27.684 +03:00 [INF] [try-convert] C:\Users\user\source\repos\Compiler\compiler.Interface\Compiler.Interface.csproj contains an App.config file. App.config is replaced by appsettings.json in .NET Core. You will need to delete App.config and migrate to appsettings.json if it's applicable to your project.
+2021-03-07 11:42:30.267 +03:00 [INF] [try-convert] Conversion complete!
+2021-03-07 11:42:30.670 +03:00 [INF] Project file converted successfully! The project may require additional changes to build successfully against the new .NET target.
+2021-03-07 11:42:32.121 +03:00 [INF] Upgrade step Convert project file to SDK style applied successfully
+2021-03-07 11:42:35.473 +03:00 [INF] Initializing upgrade step Update TFM
+2021-03-07 11:42:35.479 +03:00 [ERR] Unexpected error initializing step
+Microsoft.DotNet.UpgradeAssistant.ProjectRestoreRequiredException: Project is not restored: C:\Users\user\source\repos\Compiler\compiler.Interface\Compiler.Interface.csproj
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildProject.<get_TransitivePackageReferences>g__GetTransitiveDependencies|26_0() in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildProject.cs:line 208
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildProject.get_TransitivePackageReferences() in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildProject.cs:line 194
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildProject.get_Components() in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildProject.cs:line 74
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildTargetTFMSelector.SelectTFM(IProject project) in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildTargetTFMSelector.cs:line 47
+   at Microsoft.DotNet.UpgradeAssistant.Steps.ProjectFormat.SetTFMStep.InitializeImplAsync(IUpgradeContext context, CancellationToken token) in /_/src/steps/Microsoft.DotNet.UpgradeAssistant.Steps.ProjectFormat/SetTFMStep.cs:line 60
+   at Microsoft.DotNet.UpgradeAssistant.UpgradeStep.InitializeAsync(IUpgradeContext context, CancellationToken token) in /_/src/common/Microsoft.DotNet.UpgradeAssistant.Abstractions/UpgradeStep.cs:line 131
+2021-03-07 11:42:37.275 +03:00 [INF] Applying upgrade step Update TFM
+2021-03-07 11:42:37.282 +03:00 [ERR] Unexpected error applying step
+Microsoft.DotNet.UpgradeAssistant.ProjectRestoreRequiredException: Project is not restored: C:\Users\user\source\repos\Compiler\compiler.Interface\Compiler.Interface.csproj
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildProject.<get_TransitivePackageReferences>g__GetTransitiveDependencies|26_0() in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildProject.cs:line 208
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildProject.get_TransitivePackageReferences() in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildProject.cs:line 194
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildProject.get_Components() in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildProject.cs:line 74
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildTargetTFMSelector.SelectTFM(IProject project) in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildTargetTFMSelector.cs:line 47
+   at Microsoft.DotNet.UpgradeAssistant.Steps.ProjectFormat.SetTFMStep.ApplyImplAsync(IUpgradeContext context, CancellationToken token) in /_/src/steps/Microsoft.DotNet.UpgradeAssistant.Steps.ProjectFormat/SetTFMStep.cs:line 44
+   at Microsoft.DotNet.UpgradeAssistant.UpgradeStep.ApplyAsync(IUpgradeContext context, CancellationToken token) in /_/src/common/Microsoft.DotNet.UpgradeAssistant.Abstractions/UpgradeStep.cs:line 169
+2021-03-07 11:42:41.116 +03:00 [INF] Applying upgrade step Update TFM
+2021-03-07 11:42:41.121 +03:00 [ERR] Unexpected error applying step
+Microsoft.DotNet.UpgradeAssistant.ProjectRestoreRequiredException: Project is not restored: C:\Users\user\source\repos\Compiler\compiler.Interface\Compiler.Interface.csproj
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildProject.<get_TransitivePackageReferences>g__GetTransitiveDependencies|26_0() in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildProject.cs:line 208
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildProject.get_TransitivePackageReferences() in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildProject.cs:line 194
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildProject.get_Components() in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildProject.cs:line 74
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildTargetTFMSelector.SelectTFM(IProject project) in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildTargetTFMSelector.cs:line 47
+   at Microsoft.DotNet.UpgradeAssistant.Steps.ProjectFormat.SetTFMStep.ApplyImplAsync(IUpgradeContext context, CancellationToken token) in /_/src/steps/Microsoft.DotNet.UpgradeAssistant.Steps.ProjectFormat/SetTFMStep.cs:line 44
+   at Microsoft.DotNet.UpgradeAssistant.UpgradeStep.ApplyAsync(IUpgradeContext context, CancellationToken token) in /_/src/common/Microsoft.DotNet.UpgradeAssistant.Abstractions/UpgradeStep.cs:line 169
+2021-03-07 11:42:46.662 +03:00 [INF] Applying upgrade step Update TFM
+2021-03-07 11:42:46.667 +03:00 [ERR] Unexpected error applying step
+Microsoft.DotNet.UpgradeAssistant.ProjectRestoreRequiredException: Project is not restored: C:\Users\user\source\repos\Compiler\compiler.Interface\Compiler.Interface.csproj
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildProject.<get_TransitivePackageReferences>g__GetTransitiveDependencies|26_0() in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildProject.cs:line 208
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildProject.get_TransitivePackageReferences() in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildProject.cs:line 194
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildProject.get_Components() in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildProject.cs:line 74
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildTargetTFMSelector.SelectTFM(IProject project) in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildTargetTFMSelector.cs:line 47
+   at Microsoft.DotNet.UpgradeAssistant.Steps.ProjectFormat.SetTFMStep.ApplyImplAsync(IUpgradeContext context, CancellationToken token) in /_/src/steps/Microsoft.DotNet.UpgradeAssistant.Steps.ProjectFormat/SetTFMStep.cs:line 44
+   at Microsoft.DotNet.UpgradeAssistant.UpgradeStep.ApplyAsync(IUpgradeContext context, CancellationToken token) in /_/src/common/Microsoft.DotNet.UpgradeAssistant.Abstractions/UpgradeStep.cs:line 169
+2021-03-07 11:42:50.237 +03:00 [INF] Skipping upgrade step Update TFM
+2021-03-07 11:42:50.241 +03:00 [INF] Upgrade step Update TFM skipped
+2021-03-07 11:42:52.090 +03:00 [INF] Initializing upgrade step Update NuGet packages
+2021-03-07 11:42:53.457 +03:00 [FTL] Package analysis failed (analyzer Duplicate reference analyzer
+2021-03-07 11:42:58.518 +03:00 [INF] Applying upgrade step Update NuGet packages
+2021-03-07 11:43:00.235 +03:00 [FTL] Package analysis failed (analyzer Duplicate reference analyzer
+2021-03-07 11:43:00.237 +03:00 [WRN] Upgrade step Update NuGet packages failed: "Failed": Package analysis failed
+2021-03-07 11:43:06.853 +03:00 [INF] Applying upgrade step Update NuGet packages
+2021-03-07 11:43:08.503 +03:00 [FTL] Package analysis failed (analyzer Duplicate reference analyzer
+2021-03-07 11:43:08.506 +03:00 [WRN] Upgrade step Update NuGet packages failed: "Failed": Package analysis failed
+2021-03-07 11:43:20.781 +03:00 [INF] Applying upgrade step Update NuGet packages
+2021-03-07 11:43:22.424 +03:00 [FTL] Package analysis failed (analyzer Duplicate reference analyzer
+2021-03-07 11:43:22.426 +03:00 [WRN] Upgrade step Update NuGet packages failed: "Failed": Package analysis failed
+2021-03-07 11:43:25.095 +03:00 [INF] Applying upgrade step Update NuGet packages
+2021-03-07 11:43:26.748 +03:00 [FTL] Package analysis failed (analyzer Duplicate reference analyzer
+2021-03-07 11:43:26.750 +03:00 [WRN] Upgrade step Update NuGet packages failed: "Failed": Package analysis failed
+2021-03-07 11:43:30.375 +03:00 [INF] Skipping upgrade step Update NuGet packages
+2021-03-07 11:43:30.379 +03:00 [INF] Upgrade step Update NuGet packages skipped
+2021-03-07 11:43:34.395 +03:00 [INF] Initializing upgrade step Add template files
+2021-03-07 11:43:34.430 +03:00 [INF] 0 expected template items needed
+2021-03-07 11:43:34.432 +03:00 [INF] Initializing upgrade step Upgrade app config files
+2021-03-07 11:43:34.445 +03:00 [INF] Found 0 app settings for upgrade: 
+2021-03-07 11:43:34.455 +03:00 [INF] 0 web page namespace imports need upgraded: 
+2021-03-07 11:43:34.458 +03:00 [INF] Initializing upgrade step Update C# source
+2021-03-07 11:43:36.215 +03:00 [INF] Initializing upgrade step Move to next project
+2021-03-07 11:44:03.787 +03:00 [INF] Saving upgrade progress file at C:\Users\user\source\repos\Compiler\compiler.Interface\.upgrade-assistant
+2021-03-07 11:44:07.472 +03:00 [INF] MSBuild registered from C:\Program Files\dotnet\sdk\5.0.200\
+2021-03-07 11:44:07.506 +03:00 [INF] Registered 1 extensions:
+	Default extension
+2021-03-07 11:44:10.378 +03:00 [INF] Loading upgrade progress file at C:\Users\user\source\repos\Compiler\compiler.Interface\.upgrade-assistant
+2021-03-07 11:44:12.578 +03:00 [INF] Initializing upgrade step Back up project
+2021-03-07 11:44:12.583 +03:00 [INF] Initializing upgrade step Convert project file to SDK style
+2021-03-07 11:44:12.588 +03:00 [INF] Initializing upgrade step Update TFM
+2021-03-07 11:44:12.592 +03:00 [ERR] Unexpected error initializing step
+System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildProject.get_TFM() in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildProject.cs:line 258
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildTargetTFMSelector.GetNetStandardTFM(IProject project) in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildTargetTFMSelector.cs:line 93
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildTargetTFMSelector.SelectTFM(IProject project) in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildTargetTFMSelector.cs:line 39
+   at Microsoft.DotNet.UpgradeAssistant.Steps.ProjectFormat.SetTFMStep.InitializeImplAsync(IUpgradeContext context, CancellationToken token) in /_/src/steps/Microsoft.DotNet.UpgradeAssistant.Steps.ProjectFormat/SetTFMStep.cs:line 60
+   at Microsoft.DotNet.UpgradeAssistant.UpgradeStep.InitializeAsync(IUpgradeContext context, CancellationToken token) in /_/src/common/Microsoft.DotNet.UpgradeAssistant.Abstractions/UpgradeStep.cs:line 131
+2021-03-07 11:44:19.944 +03:00 [INF] Applying upgrade step Update TFM
+2021-03-07 11:44:19.950 +03:00 [ERR] Unexpected error applying step
+System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildProject.get_TFM() in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildProject.cs:line 258
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildTargetTFMSelector.GetNetStandardTFM(IProject project) in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildTargetTFMSelector.cs:line 93
+   at Microsoft.DotNet.UpgradeAssistant.MSBuild.MSBuildTargetTFMSelector.SelectTFM(IProject project) in /_/src/components/Microsoft.DotNet.UpgradeAssistant.MSBuild/MSBuildTargetTFMSelector.cs:line 39
+   at Microsoft.DotNet.UpgradeAssistant.Steps.ProjectFormat.SetTFMStep.ApplyImplAsync(IUpgradeContext context, CancellationToken token) in /_/src/steps/Microsoft.DotNet.UpgradeAssistant.Steps.ProjectFormat/SetTFMStep.cs:line 44
+   at Microsoft.DotNet.UpgradeAssistant.UpgradeStep.ApplyAsync(IUpgradeContext context, CancellationToken token) in /_/src/common/Microsoft.DotNet.UpgradeAssistant.Abstractions/UpgradeStep.cs:line 169
+2021-03-07 11:44:25.779 +03:00 [INF] Saving upgrade progress file at C:\Users\user\source\repos\Compiler\compiler.Interface\.upgrade-assistant

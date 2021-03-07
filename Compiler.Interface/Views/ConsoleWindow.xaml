@@ -10,11 +10,11 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <i:Interaction.Triggers >
+    <!--<i:Interaction.Triggers >
         <i:EventTrigger EventName="PreviewKeyDown">
             <prism:InvokeCommandAction Command="{Binding KeyUpEventCommand}" />
         </i:EventTrigger>
-    </i:Interaction.Triggers>
+    </i:Interaction.Triggers>-->
     <Grid>
         <TextBox IsReadOnly="True" Background="Black" Text="{Binding ConsoleResult}"/>
     </Grid>

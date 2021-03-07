@@ -87,3 +87,8 @@ Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.2.2124
 2021-03-07 11:24:19.360 +03:00 [ERR] Unknown selection: ''
 2021-03-07 11:24:21.144 +03:00 [ERR] Unknown selection: 'cls'
 2021-03-07 11:24:23.095 +03:00 [INF] Saving upgrade progress file at C:\Users\user\source\repos\Compiler\.upgrade-assistant
+2021-03-07 11:40:28.648 +03:00 [INF] MSBuild registered from C:\Program Files\dotnet\sdk\5.0.200\
+2021-03-07 11:40:28.685 +03:00 [INF] Registered 1 extensions:
+	Default extension
+2021-03-07 11:40:30.946 +03:00 [INF] Loading upgrade progress file at C:\Users\user\source\repos\Compiler\.upgrade-assistant
+2021-03-07 11:40:33.290 +03:00 [INF] Saving upgrade progress file at C:\Users\user\source\repos\Compiler\.upgrade-assistant

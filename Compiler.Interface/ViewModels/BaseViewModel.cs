@@ -1,8 +1,10 @@
 ﻿using NLog;
 using Prism.Events;
+using Prism.Ioc;
 using Prism.Mvvm;
 using System;
-using Unity.Attributes;
+
+using Unity;
 
 namespace Compiler.Interface.ViewModels
 {
@@ -25,7 +27,7 @@ namespace Compiler.Interface.ViewModels
 
         public BaseViewModel()
         {
-            EventAggregator = CommonServiceLocator.ServiceLocator.Current.GetInstance<IEventAggregator>();
+            EventAggregator = ContainerLocator.Current.Resolve<IEventAggregator>();
         }
 
         protected void HandleException(Exception ex)

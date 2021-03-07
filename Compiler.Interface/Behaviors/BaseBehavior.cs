@@ -2,7 +2,8 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Interactivity;
+
+using Microsoft.Xaml.Behaviors;
 
 namespace Compiler.Interface
 {

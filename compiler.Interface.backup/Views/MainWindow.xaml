@@ -1,0 +1,169 @@
+﻿<Window x:Class="Compiler.Interface.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Compiler.Interface"
+        xmlns:views="clr-namespace:Compiler.Interface.Views"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        Title="Compiler" Height="450" Width="800">
+    <Window.Resources>
+        <local:BooleanVisibleConverter x:Key="converter" />
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="N" Modifiers="Control" Command="{Binding NewFileCommand}"/>
+        <KeyBinding Key="O" Modifiers="Control" Command="{Binding OpenFileCommand}"/>
+        <KeyBinding Key="F4" Modifiers="Control" Command="{Binding CloseFileCommand}"/>
+
+        <KeyBinding Key="S" Modifiers="Control" Command="{Binding SaveFileCommand}"/>
+        <KeyBinding Key="S" Modifiers="Control+Shift" Command="{Binding SaveAllFilesCommand}"/>
+
+        <KeyBinding Key="F4" Modifiers="Alt" Command="{Binding ExitApplicationCommand}"/>
+
+        <KeyBinding Key="Z" Modifiers="Control" Command="{Binding UndoCommand}"/>
+        <KeyBinding Key="Y" Modifiers="Control" Command="{Binding RedoCommand}"/>
+
+        <KeyBinding Key="C" Modifiers="Control" Command="{Binding CopyCommand}"/>
+        <KeyBinding Key="X" Modifiers="Control" Command="{Binding CutCommand}"/>
+        <KeyBinding Key="V" Modifiers="Control" Command="{Binding PasteCommand}"/>
+
+        <KeyBinding Key="A" Modifiers="Control" Command="{Binding SelectAllCommand}"/>
+        <KeyBinding Key="D" Modifiers="Control" Command="{Binding DeselectCommand}"/>
+
+        <KeyBinding Key="F6" Command="{Binding BuildCommand}"/>
+        <KeyBinding Key="F5" Command="{Binding ExecuteCommand}"/>
+
+        <KeyBinding Key="Tab" Modifiers="Ctrl" Command="{Binding NextTabCommand}" />
+    </Window.InputBindings>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding WindowClosing}" />
+        </i:EventTrigger>
+        
+        <prism:InteractionRequestTrigger SourceObject="{Binding ConsoleWindowInteractionRequest, Mode=OneWay}" >
+            <prism:PopupWindowAction WindowStartupLocation="CenterScreen" IsModal="True">
+                <prism:PopupWindowAction.WindowContent>
+                    <views:ConsoleWindow />
+                </prism:PopupWindowAction.WindowContent>
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <TextBox Style="{StaticResource ErrorMessageStyle}" Text="{Binding ErrorMessage}" />
+            <Menu Height="Auto" >
+                <MenuItem Header="_File">
+                    <MenuItem Header="_New" Command="{Binding NewFileCommand}" InputGestureText="Ctrl + N"/>
+                    <MenuItem Header="_Open" Command="{Binding OpenFileCommand}" InputGestureText="Ctrl + O"/>
+                    <MenuItem Header="_Close" Command="{Binding CloseFileCommand}" InputGestureText="Alt + F4"/>
+                    <MenuItem Header="_Close All" Command="{Binding CloseAllFilesCommand}"/>
+                    <Separator />
+                    <MenuItem Header="_Save" Command="{Binding SaveFileCommand}" InputGestureText="Ctrl + S"/>
+                    <MenuItem Header="_Save All" Command="{Binding SaveAllFilesCommand}" InputGestureText="Ctrl + Shift + S"/>
+                    <MenuItem Header="_Save As" Command="{Binding SaveAsCommand}"/>
+                    <Separator />
+                    <MenuItem Header="_Exit" Command="{Binding ExitApplicationCommand}" InputGestureText="Alt + F4"/>
+                </MenuItem>
+
+                <MenuItem Header="_Edit">
+                    <MenuItem Header="_Undo" Command="{Binding UndoCommand}" InputGestureText="Ctrl + Z"/>
+                    <MenuItem Header="_Redo" Command="{Binding RedoCommand}" InputGestureText="Ctrl + Y"/>
+                    <MenuItem Header="_Select All" Command="{Binding SelectAllCommand}" InputGestureText="Ctrl + A"/>
+                    <MenuItem Header="_Deselect All" Command="{Binding DeselectCommand}" InputGestureText="Ctrl + D"/>
+                    <MenuItem Header="_Clear" Command="{Binding ClearCommand}"/>
+                    <Separator />
+                    <MenuItem Header="_Cut" Command="{Binding CutCommand}" InputGestureText="Ctrl + X"/>
+                    <MenuItem Header="_Copy" Command="{Binding CopyCommand}" InputGestureText="Ctrl + C"/>
+                    <MenuItem Header="_Paste" Command="{Binding PasteCommand}" InputGestureText="Ctrl + V"/>
+                    <Separator />
+                    <MenuItem Header="Options" Command="{Binding OptionsCommand}">
+                        <i:Interaction.Triggers>
+                            <prism:InteractionRequestTrigger SourceObject="{Binding OptionsWindowInteractionRequest, Mode=OneWay}" >
+                                <prism:PopupWindowAction WindowStartupLocation="CenterScreen" IsModal="True">
+                                    <prism:PopupWindowAction.WindowContent>
+                                        <views:OptionsWindow />
+                                    </prism:PopupWindowAction.WindowContent>
+                                </prism:PopupWindowAction>
+                            </prism:InteractionRequestTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
+                </MenuItem>
+
+                <MenuItem Header="_Debug">
+                    <MenuItem Header="_Build" Command="{Binding BuildCommand}" InputGestureText="F6"/>
+                    <MenuItem Header="_Execute" Command="{Binding ExecuteCommand}" InputGestureText="F5"/>
+                    <MenuItem Header="_Execute From Object File" Command="{Binding ExecuteFromObjFileCommand}"/>
+                </MenuItem>
+
+                <MenuItem Header="_Help">
+                    <MenuItem Header="About" Command="{Binding AboutCommand}">
+                        <i:Interaction.Triggers>
+                            <prism:InteractionRequestTrigger SourceObject="{Binding AboutWindowInteractionRequest, Mode=OneWay}" >
+                                <prism:PopupWindowAction WindowStartupLocation="CenterScreen" IsModal="True">
+                                    <prism:PopupWindowAction.WindowContent>
+                                        <views:AboutWindow />
+                                    </prism:PopupWindowAction.WindowContent>
+                                </prism:PopupWindowAction>
+                            </prism:InteractionRequestTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TabControl Margin="5" Grid.Row="0" ItemsSource="{Binding Files}" SelectedItem="{Binding SelectedFile}">
+                <TabControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding FileName}" />
+                            <TextBlock Margin="5,0,5,0" Text="*" Visibility="{Binding IsSaved, Converter={StaticResource converter}}"/>
+                            <Button Padding="3" Command="{Binding CloseFileCommand}">x</Button>
+                        </StackPanel>
+                    </DataTemplate>
+                </TabControl.ItemTemplate>
+                <TabControl.ContentTemplate>
+                    <DataTemplate>
+                        <TextBox Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" >
+                            <i:Interaction.Behaviors>
+                                <local:SelectAllTextBehavior SelectTrigger="{Binding SelectTrigger, Mode=TwoWay}" />
+                                <local:DeselectAllTextBehavior DeselectTrigger="{Binding DeselectTrigger, Mode=TwoWay}" />
+                                <local:ClearTextBehavior ClearTextTrigger="{Binding ClearTextTrigger, Mode=TwoWay}" />
+                                <local:RedoBehavior RedoTrigger="{Binding RedoTrigger, Mode=TwoWay}" />
+                                <local:UndoBehavior UndoTrigger="{Binding UndoTrigger, Mode=TwoWay}" />
+
+                                <local:CutBehavior CutTrigger="{Binding CutTrigger, Mode=TwoWay}" />
+                                <local:CopyBehavior CopyTrigger="{Binding CopyTrigger, Mode=TwoWay}" />
+                                <local:PasteBehavior PasteTrigger="{Binding PasteTrigger, Mode=TwoWay}" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                    </DataTemplate>
+                </TabControl.ContentTemplate>
+            </TabControl>
+            <TabControl Margin="5" Grid.Row="1">
+                <TabItem Header="Errors">
+                    <views:ErrorPanelView/>
+                </TabItem>
+            </TabControl>
+        </Grid>
+        <StatusBar Grid.Row="2">
+            <StatusBarItem>
+                <TextBlock Text="{Binding StatusDescription}" />
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

@@ -22,7 +22,7 @@ namespace Compiler.Interface.Views
     {
         public FilesView()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
     }
 }

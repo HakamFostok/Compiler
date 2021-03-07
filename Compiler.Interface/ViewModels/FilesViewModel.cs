@@ -25,7 +25,7 @@ namespace Compiler.Interface.ViewModels
             set
             {
                 SetProperty(ref selectedFile, value);
-                GetEvent<SelectedFileChanged>().Publish(value);
+                //GetEvent<SelectedFileChanged>().Publish(value);
             }
         }
 

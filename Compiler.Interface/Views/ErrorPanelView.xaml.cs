@@ -22,7 +22,7 @@ namespace Compiler.Interface.Views
     {
         public ErrorPanelView()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
     }
 }

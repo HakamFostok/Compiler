@@ -1,4 +1,7 @@
 ﻿using Compiler.Core;
+
+using Microsoft.Extensions.Logging;
+
 using NLog;
 using Prism.Events;
 using Prism.Ioc;
@@ -15,6 +18,7 @@ namespace Compiler.Interface
     {
         protected override Window CreateShell()
         {
+            //return null;
             return new Views.MainWindow();
         }
 
@@ -22,7 +26,7 @@ namespace Compiler.Interface
         {
             containerRegistry.RegisterInstance<ICompiler>(new AubCompiler());
             containerRegistry.RegisterInstance<IEventAggregator>(new EventAggregator());
-            containerRegistry.RegisterInstance<ILogger>(LogManager.GetCurrentClassLogger());
+            containerRegistry.RegisterInstance<NLog.ILogger>(LogManager.GetCurrentClassLogger());
             containerRegistry.RegisterInstance<IFileDialogsService>(new FileDialogsService());
         }
     }
