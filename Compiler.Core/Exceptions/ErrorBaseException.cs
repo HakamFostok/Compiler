@@ -1,25 +1,23 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
-namespace Compiler.Core
+namespace Compiler.Core;
+
+[Serializable]
+public abstract class ErrorBaseException : ApplicationException
 {
-    [Serializable]
-    public abstract class ErrorBaseException : ApplicationException
-    {
-        protected ErrorBaseException()
-        { }
+    protected ErrorBaseException()
+    { }
 
-        protected ErrorBaseException(string message)
-            : base(message)
-        { }
+    protected ErrorBaseException(string message)
+        : base(message)
+    { }
 
-        protected ErrorBaseException(string message, Exception inner) :
-            base(message, inner)
-        { }
+    protected ErrorBaseException(string message, Exception inner) :
+        base(message, inner)
+    { }
 
-        protected ErrorBaseException(
-          SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        { }
-    }
+    protected ErrorBaseException(
+      SerializationInfo info, StreamingContext context)
+        : base(info, context)
+    { }
 }

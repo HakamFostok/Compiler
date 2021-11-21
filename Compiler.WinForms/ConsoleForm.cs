@@ -1,32 +1,23 @@
-﻿using System.Windows.Forms;
+﻿namespace Compiler.Core;
 
-namespace Compiler.Core
+public partial class ConsoleForm : Form
 {
-    public partial class ConsoleForm : Form
+    public string ValueEntered { get; set; }
+
+    public ConsoleForm()
     {
-        public string ValueEntered { get; set; }
+        InitializeComponent();
+    }
 
-        public ConsoleForm()
-        {
-            InitializeComponent();
-        }
+    public void ClearScreen() => richBxConsole.Text = "";
 
-        public void ClearScreen()
-        {
-            richBxConsole.Text = "";
-        }
+    public void Write(string data, bool isLine) => richBxConsole.Text += data + ((isLine) ? "\n" : "");
 
-        public void Write(string data, bool isLine)
+    private void richBxConsole_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter)
         {
-            richBxConsole.Text += data + ((isLine) ? "\n" : "");
-        }
-
-        private void richBxConsole_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                Close();
-            }
+            Close();
         }
     }
 }

@@ -1,9 +1,8 @@
-﻿namespace Compiler.Core
+﻿namespace Compiler.Core;
+
+[System.Serializable]
+public class BaseInstruction
 {
-    [System.Serializable]
-    public class BaseInstruction
-    {
-        internal object Ins { get; set; }
-        internal BaseInstruction Next { get; set; }
-    }
+    internal object Ins { get; set; }
+    internal BaseInstruction Next { get; set; }
 }

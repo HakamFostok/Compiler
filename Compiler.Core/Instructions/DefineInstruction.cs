@@ -1,8 +1,7 @@
-﻿namespace Compiler.Core
+﻿namespace Compiler.Core;
+
+class DefineInstruction : IdentifierInstruction
 {
-    class DefineInstruction : IdentifierInstruction
-    {
-        internal double ValNB { get; set; }
-        internal string ValStr { get; set; }
-    }
+    internal double ValNB { get; set; }
+    internal string ValStr { get; set; }
 }

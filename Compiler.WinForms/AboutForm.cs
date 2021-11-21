@@ -1,14 +1,10 @@
-﻿using System.Windows.Forms;
+﻿namespace Compiler.Core;
 
-namespace Compiler.Core
+public partial class AboutForm : Form
 {
-    public partial class AboutForm : Form
+    public AboutForm()
     {
-        public AboutForm()
-        {
-            InitializeComponent();
-        }
-
-
+        InitializeComponent();
     }
+
 }

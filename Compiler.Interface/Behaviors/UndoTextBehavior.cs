@@ -1,35 +1,33 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Compiler.Interface
+namespace Compiler.Interface;
+
+public class UndoBehavior : BaseBehavior<TextBox>
 {
-    public class UndoBehavior : BaseBehavior<TextBox>
+    public bool UndoTrigger
     {
-        public bool UndoTrigger
+        get => (bool)GetValue(UndoTriggerProperty);
+        set
         {
-            get { return (bool)GetValue(UndoTriggerProperty); }
-            set
-            {
-                SetValue(UndoTriggerProperty, value);
-                RaisePropertyChanged();
-            }
+            SetValue(UndoTriggerProperty, value);
+            RaisePropertyChanged();
         }
+    }
 
-        public static readonly DependencyProperty UndoTriggerProperty = DependencyProperty.Register(nameof(UndoTrigger), typeof(bool), typeof(UndoBehavior), new PropertyMetadata(false, OnUndoTriggerChanged));
+    public static readonly DependencyProperty UndoTriggerProperty = DependencyProperty.Register(nameof(UndoTrigger), typeof(bool), typeof(UndoBehavior), new PropertyMetadata(false, OnUndoTriggerChanged));
 
-        private static void OnUndoTriggerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            UndoBehavior behavior = d as UndoBehavior;
+    private static void OnUndoTriggerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        UndoBehavior behavior = d as UndoBehavior;
 
-            if (behavior != null)
-                behavior.OnUndoTriggerChanged();
-        }
+        if (behavior != null)
+            behavior.OnUndoTriggerChanged();
+    }
 
-        private void OnUndoTriggerChanged()
-        {
-            if (this.UndoTrigger)
-                this.AssociatedObject.Undo();
-        }
+    private void OnUndoTriggerChanged()
+    {
+        if (this.UndoTrigger)
+            this.AssociatedObject.Undo();
     }
 }

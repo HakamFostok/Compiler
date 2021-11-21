@@ -1,36 +1,33 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Compiler.Interface
+namespace Compiler.Interface;
+
+public class RedoBehavior : BaseBehavior<TextBox>
 {
-
-    public class RedoBehavior : BaseBehavior<TextBox>
+    public bool RedoTrigger
     {
-        public bool RedoTrigger
+        get => (bool)GetValue(RedoTriggerProperty);
+        set
         {
-            get { return (bool)GetValue(RedoTriggerProperty); }
-            set
-            {
-                SetValue(RedoTriggerProperty, value);
-                RaisePropertyChanged();
-            }
+            SetValue(RedoTriggerProperty, value);
+            RaisePropertyChanged();
         }
+    }
 
-        public static readonly DependencyProperty RedoTriggerProperty = DependencyProperty.Register(nameof(RedoTrigger), typeof(bool), typeof(RedoBehavior), new PropertyMetadata(false, OnRedoTriggerChanged));
+    public static readonly DependencyProperty RedoTriggerProperty = DependencyProperty.Register(nameof(RedoTrigger), typeof(bool), typeof(RedoBehavior), new PropertyMetadata(false, OnRedoTriggerChanged));
 
-        private static void OnRedoTriggerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            RedoBehavior behavior = d as RedoBehavior;
+    private static void OnRedoTriggerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        RedoBehavior behavior = d as RedoBehavior;
 
-            if (behavior != null)
-                behavior.OnRedoTriggerChanged();
-        }
+        if (behavior != null)
+            behavior.OnRedoTriggerChanged();
+    }
 
-        private void OnRedoTriggerChanged()
-        {
-            if (this.RedoTrigger)
-                this.AssociatedObject.Redo();
-        }
+    private void OnRedoTriggerChanged()
+    {
+        if (this.RedoTrigger)
+            this.AssociatedObject.Redo();
     }
 }

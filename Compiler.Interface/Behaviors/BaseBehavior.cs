@@ -1,28 +1,20 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 
 using Microsoft.Xaml.Behaviors;
 
-namespace Compiler.Interface
+namespace Compiler.Interface;
+
+public abstract class BaseBehavior<T> : Behavior<T>, INotifyPropertyChanged where T : DependencyObject
 {
-    public abstract class BaseBehavior<T> : Behavior<T>, INotifyPropertyChanged where T : DependencyObject
+    protected BaseBehavior()
     {
-        protected BaseBehavior()
-        {
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-       
-        protected void RaisePropertyChanged([CallerMemberName]string propertyName = null)
-        {
-            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
-        }
-
-        protected virtual void OnPropertyChanged(PropertyChangedEventArgs args)
-        {
-            PropertyChanged?.Invoke(this, args);
-        }
     }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected void RaisePropertyChanged([CallerMemberName] string propertyName = null) => OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+
+    protected virtual void OnPropertyChanged(PropertyChangedEventArgs args) => PropertyChanged?.Invoke(this, args);
 }

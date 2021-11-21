@@ -1,9 +1,8 @@
-﻿namespace Compiler.Core
+﻿namespace Compiler.Core;
+
+[System.Serializable]
+class TWrite
 {
-    [System.Serializable]
-    class TWrite
-    {
-        internal TExpression exp { get; set; }
-        internal bool isLn { get; set; }
-    }
+    internal TExpression exp { get; set; }
+    internal bool isLn { get; set; }
 }

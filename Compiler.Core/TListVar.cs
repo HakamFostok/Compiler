@@ -1,9 +1,8 @@
-﻿namespace Compiler.Core
+﻿namespace Compiler.Core;
+
+[System.Serializable]
+class TListVar
 {
-    [System.Serializable]
-    class TListVar
-    {
-        internal TVar V { get; set; }
-        internal TListVar Next { get; set; }
-    }
+    internal TVar V { get; set; }
+    internal TListVar Next { get; set; }
 }

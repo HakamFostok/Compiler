@@ -1,18 +1,8 @@
-﻿namespace Compiler.Core
+﻿namespace Compiler.Core;
+
+[System.Serializable]
+class RepeatUntilInstruction
 {
-#if doc
-    [System.Serializable]
-    class RepeatUntilInstruction
-    {
-        internal TExpression Cond { get; set; }
-        internal BaseInstruction Ins { get; set; }
-    }
-
-#else
-    
-    class TRepeatUntil : TCondition
-    {
-    }
-
-#endif
+    internal TExpression Cond { get; set; }
+    internal BaseInstruction Ins { get; set; }
 }

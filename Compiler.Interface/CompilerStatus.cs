@@ -1,13 +1,12 @@
-﻿namespace Compiler.Interface
+﻿namespace Compiler.Interface;
+
+public enum CompilerStatus
 {
-    public enum CompilerStatus
-    {
-        Ready,
+    Ready,
 
-        Compiling,
+    Compiling,
 
-        CompileFail,
+    CompileFail,
 
-        CompileSuccess,
-    }
+    CompileSuccess,
 }

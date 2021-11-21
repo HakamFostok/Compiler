@@ -1,8 +1,7 @@
-﻿namespace Compiler.Core
+﻿namespace Compiler.Core;
+
+[System.Serializable]
+class ReturnInstruction
 {
-    [System.Serializable]
-    class ReturnInstruction
-    {
-        internal TExpression Exp { get; set; }
-    }
+    internal TExpression Exp { get; set; }
 }

@@ -1,8 +1,7 @@
-﻿namespace Compiler.Core
+﻿namespace Compiler.Core;
+
+[System.Serializable]
+class BreakInstruction
 {
-    [System.Serializable]
-    class BreakInstruction
-    {
-        internal TypeSymbol UL { get; set; }
-    }
+    internal TypeSymbol UL { get; set; }
 }

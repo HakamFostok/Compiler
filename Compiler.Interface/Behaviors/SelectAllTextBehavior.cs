@@ -1,52 +1,47 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Compiler.Interface
+namespace Compiler.Interface;
+
+public class SelectAllTextBehavior : BaseBehavior<TextBox>
 {
-    public class SelectAllTextBehavior : BaseBehavior<TextBox>
+    public bool SelectTrigger
     {
-        public bool SelectTrigger
+        get => (bool)GetValue(SelectTriggerProperty);
+        set
         {
-            get { return (bool)GetValue(SelectTriggerProperty); }
-            set
-            {
-                SetValue(SelectTriggerProperty, value);
-                RaisePropertyChanged();
-            }
+            SetValue(SelectTriggerProperty, value);
+            RaisePropertyChanged();
         }
+    }
 
-        public static readonly DependencyProperty SelectTriggerProperty = DependencyProperty.Register(nameof(SelectTrigger), typeof(bool), typeof(SelectAllTextBehavior), new PropertyMetadata(false, OnSelectTriggerChanged));
+    public static readonly DependencyProperty SelectTriggerProperty = DependencyProperty.Register(nameof(SelectTrigger), typeof(bool), typeof(SelectAllTextBehavior), new PropertyMetadata(false, OnSelectTriggerChanged));
 
-        protected override void OnAttached()
-        {
-            this.AssociatedObject.SelectionChanged += AssociatedObject_SelectionChanged;
-            base.OnAttached();
-        }
+    protected override void OnAttached()
+    {
+        this.AssociatedObject.SelectionChanged += AssociatedObject_SelectionChanged;
+        base.OnAttached();
+    }
 
-        protected override void OnDetaching()
-        {
-            this.AssociatedObject.SelectionChanged -= AssociatedObject_SelectionChanged;
-            base.OnDetaching();
-        }
+    protected override void OnDetaching()
+    {
+        this.AssociatedObject.SelectionChanged -= AssociatedObject_SelectionChanged;
+        base.OnDetaching();
+    }
 
-        private void AssociatedObject_SelectionChanged(object sender, RoutedEventArgs e)
-        {
-            this.SelectTrigger = false;
-        }
+    private void AssociatedObject_SelectionChanged(object sender, RoutedEventArgs e) => this.SelectTrigger = false;
 
-        private static void OnSelectTriggerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            SelectAllTextBehavior behavior = d as SelectAllTextBehavior;
+    private static void OnSelectTriggerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        SelectAllTextBehavior behavior = d as SelectAllTextBehavior;
 
-            if (behavior != null)
-                behavior.OnSelectTriggerChanged();
-        }
+        if (behavior != null)
+            behavior.OnSelectTriggerChanged();
+    }
 
-        private void OnSelectTriggerChanged()
-        {
-            if (this.SelectTrigger)
-                this.AssociatedObject.SelectAll();
-        }
+    private void OnSelectTriggerChanged()
+    {
+        if (this.SelectTrigger)
+            this.AssociatedObject.SelectAll();
     }
 }

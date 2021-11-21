@@ -1,24 +1,22 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
-namespace Compiler.Core
+namespace Compiler.Core;
+
+[Serializable]
+public class RuntimeErrorException : ErrorBaseException
 {
-    [Serializable]
-    public class RuntimeErrorException : ErrorBaseException
-    {
-        public RuntimeErrorException() { }
+    public RuntimeErrorException() { }
 
-        public RuntimeErrorException(string message)
-            : base(message)
-        { }
+    public RuntimeErrorException(string message)
+        : base(message)
+    { }
 
-        public RuntimeErrorException(string message, Exception inner)
-            : base(message, inner)
-        { }
+    public RuntimeErrorException(string message, Exception inner)
+        : base(message, inner)
+    { }
 
-        protected RuntimeErrorException(
-          SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        { }
-    }
+    protected RuntimeErrorException(
+      SerializationInfo info, StreamingContext context)
+        : base(info, context)
+    { }
 }
