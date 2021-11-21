@@ -27,7 +27,7 @@ public class UndoBehavior : BaseBehavior<TextBox>
 
     private void OnUndoTriggerChanged()
     {
-        if (this.UndoTrigger)
-            this.AssociatedObject.Undo();
+        if (UndoTrigger)
+            AssociatedObject.Undo();
     }
 }

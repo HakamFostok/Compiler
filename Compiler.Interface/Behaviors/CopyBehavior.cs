@@ -27,7 +27,7 @@ public class CopyBehavior : BaseBehavior<TextBox>
 
     private void OnCopyTriggerChanged()
     {
-        if (this.CopyTrigger)
-            this.AssociatedObject.Copy();
+        if (CopyTrigger)
+            AssociatedObject.Copy();
     }
 }

@@ -48,19 +48,19 @@ public class ErrorPanelViewModel : BaseViewModel
 
     public void ShowError(ShowErrorEventArgs eventArgs)
     {
-        this.Message = eventArgs.Message;
-        this.Column = eventArgs.Column;
-        this.Line = eventArgs.Line;
-        this.File = eventArgs.File;
-        this.ErrorType = eventArgs.ErrorType;
+        Message = eventArgs.Message;
+        Column = eventArgs.Column;
+        Line = eventArgs.Line;
+        File = eventArgs.File;
+        ErrorType = eventArgs.ErrorType;
     }
 
     public void ClearError()
     {
-        this.Message = string.Empty;
-        this.Column = string.Empty;
-        this.Line = string.Empty;
-        this.File = string.Empty;
-        this.ErrorType = string.Empty;
+        Message = string.Empty;
+        Column = string.Empty;
+        Line = string.Empty;
+        File = string.Empty;
+        ErrorType = string.Empty;
     }
 }

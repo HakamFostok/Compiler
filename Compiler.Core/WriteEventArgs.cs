@@ -10,11 +10,11 @@ public class ShowErrorEventArgs : EventArgs
 
     public ShowErrorEventArgs(string message, string column, string line, string file, string errorType)
     {
-        this.Message = message;
-        this.Column = column;
-        this.Line = line;
-        this.File = file;
-        this.ErrorType = errorType;
+        Message = message;
+        Column = column;
+        Line = line;
+        File = file;
+        ErrorType = errorType;
     }
 }
 

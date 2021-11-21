@@ -27,7 +27,7 @@ public class PasteBehavior : BaseBehavior<TextBox>
 
     private void OnPasteTriggerChanged()
     {
-        if (this.PasteTrigger)
-            this.AssociatedObject.Paste();
+        if (PasteTrigger)
+            AssociatedObject.Paste();
     }
 }

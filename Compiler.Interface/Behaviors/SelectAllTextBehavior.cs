@@ -19,17 +19,17 @@ public class SelectAllTextBehavior : BaseBehavior<TextBox>
 
     protected override void OnAttached()
     {
-        this.AssociatedObject.SelectionChanged += AssociatedObject_SelectionChanged;
+        AssociatedObject.SelectionChanged += AssociatedObject_SelectionChanged;
         base.OnAttached();
     }
 
     protected override void OnDetaching()
     {
-        this.AssociatedObject.SelectionChanged -= AssociatedObject_SelectionChanged;
+        AssociatedObject.SelectionChanged -= AssociatedObject_SelectionChanged;
         base.OnDetaching();
     }
 
-    private void AssociatedObject_SelectionChanged(object sender, RoutedEventArgs e) => this.SelectTrigger = false;
+    private void AssociatedObject_SelectionChanged(object sender, RoutedEventArgs e) => SelectTrigger = false;
 
     private static void OnSelectTriggerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -41,7 +41,7 @@ public class SelectAllTextBehavior : BaseBehavior<TextBox>
 
     private void OnSelectTriggerChanged()
     {
-        if (this.SelectTrigger)
-            this.AssociatedObject.SelectAll();
+        if (SelectTrigger)
+            AssociatedObject.SelectAll();
     }
 }

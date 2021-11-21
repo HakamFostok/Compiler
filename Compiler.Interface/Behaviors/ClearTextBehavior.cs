@@ -19,17 +19,17 @@ public class ClearTextBehavior : BaseBehavior<TextBox>
 
     protected override void OnAttached()
     {
-        this.AssociatedObject.TextChanged += AssociatedObject_TextChanged; ;
+        AssociatedObject.TextChanged += AssociatedObject_TextChanged; ;
         base.OnAttached();
     }
 
     protected override void OnDetaching()
     {
-        this.AssociatedObject.TextChanged -= AssociatedObject_TextChanged;
+        AssociatedObject.TextChanged -= AssociatedObject_TextChanged;
         base.OnDetaching();
     }
 
-    private void AssociatedObject_TextChanged(object sender, TextChangedEventArgs e) => this.ClearTextTrigger = false;
+    private void AssociatedObject_TextChanged(object sender, TextChangedEventArgs e) => ClearTextTrigger = false;
 
     private static void OnClearTextTriggerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -41,7 +41,7 @@ public class ClearTextBehavior : BaseBehavior<TextBox>
 
     private void OnClearTextTriggerChanged()
     {
-        if (this.ClearTextTrigger)
-            this.AssociatedObject.Clear();
+        if (ClearTextTrigger)
+            AssociatedObject.Clear();
     }
 }

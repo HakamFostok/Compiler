@@ -105,11 +105,11 @@ public class AubFile : BaseViewModel
 
     private AubFile(string path, string content)
     {
-        this.FilePath = path;
-        this.Content = content;
-        this.IsSaved = true;
+        FilePath = path;
+        Content = content;
+        IsSaved = true;
 
-        this.CloseFileCommand = new DelegateCommand(CloseFileCommandExecuted);
+        CloseFileCommand = new DelegateCommand(CloseFileCommandExecuted);
     }
 
     private void CloseFileCommandExecuted() => EventAggregator.GetEvent<CloseFilePubSub>().Publish(this);

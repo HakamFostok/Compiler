@@ -27,7 +27,7 @@ public class RedoBehavior : BaseBehavior<TextBox>
 
     private void OnRedoTriggerChanged()
     {
-        if (this.RedoTrigger)
-            this.AssociatedObject.Redo();
+        if (RedoTrigger)
+            AssociatedObject.Redo();
     }
 }

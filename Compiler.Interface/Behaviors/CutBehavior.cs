@@ -27,7 +27,7 @@ public class CutBehavior : BaseBehavior<TextBox>
 
     private void OnCutTriggerChanged()
     {
-        if (this.CutTrigger)
-            this.AssociatedObject.Cut();
+        if (CutTrigger)
+            AssociatedObject.Cut();
     }
 }

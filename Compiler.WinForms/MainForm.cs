@@ -166,9 +166,11 @@ public partial class MainForm : Form
         }
     }
 
-    private void SaveCodeToFile(TabPage page) => File.WriteAllLines((string)page.Tag, ((RichTextBox)page.Controls[Resources.RichTextBoxControl]).Lines);
+    private void SaveCodeToFile(TabPage page) =>
+        File.WriteAllLines((string)page.Tag, ((RichTextBox)page.Controls[Resources.RichTextBoxControl]).Lines);
 
-    private void saveToolStripMenuItem_Click(object sender, EventArgs e) => SaveCodeToFile(SelectedPage);
+    private void saveToolStripMenuItem_Click(object sender, EventArgs e) =>
+        SaveCodeToFile(SelectedPage);
 
     private void saveAllToolStripMenuItem_Click(object sender, EventArgs e)
     {

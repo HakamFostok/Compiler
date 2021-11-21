@@ -19,17 +19,17 @@ public class DeselectAllTextBehavior : BaseBehavior<TextBox>
 
     protected override void OnAttached()
     {
-        this.AssociatedObject.SelectionChanged += AssociatedObject_SelectionChanged;
+        AssociatedObject.SelectionChanged += AssociatedObject_SelectionChanged;
         base.OnAttached();
     }
 
     protected override void OnDetaching()
     {
-        this.AssociatedObject.SelectionChanged -= AssociatedObject_SelectionChanged;
+        AssociatedObject.SelectionChanged -= AssociatedObject_SelectionChanged;
         base.OnDetaching();
     }
 
-    private void AssociatedObject_SelectionChanged(object sender, RoutedEventArgs e) => this.DeselectTrigger = false;
+    private void AssociatedObject_SelectionChanged(object sender, RoutedEventArgs e) => DeselectTrigger = false;
 
     private static void OnDeselectTriggerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -41,7 +41,7 @@ public class DeselectAllTextBehavior : BaseBehavior<TextBox>
 
     private void OnDeselectTriggerChanged()
     {
-        if (this.DeselectTrigger)
-            this.AssociatedObject.Select(0, 0);
+        if (DeselectTrigger)
+            AssociatedObject.Select(0, 0);
     }
 }
